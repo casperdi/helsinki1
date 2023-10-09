@@ -1,0 +1,203 @@
+:root {
+    --turquoise: #008782;
+    --white: #fff;
+    --purple: #86419E;
+    --grey: #9F9F9F;
+}
+*{
+  box-sizing: border-box;
+}
+
+/*----------------Header------------------*/
+
+header {
+  color: var(--turquoise);
+  overflow: hidden;
+  padding-right: 5%;
+  padding-left: 5%;
+  padding-bottom: 30px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2)
+}
+
+#logo {
+  width: 5%;
+  position: absolute;
+  top: 0;
+  left: 0;  
+}
+#HSY{
+  display: flex;
+  width: 100%;
+  padding-top: 50px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+}
+
+#HSY h1{
+  font-size: 32px;
+  font-weight: bold;
+  width: 50%;
+}
+
+#secondary-nav{
+  display: flex;
+}
+#secondary-nav a{
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--turquoise);  
+
+}
+
+
+#main-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  
+}
+
+
+#main-nav a{
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--turquoise);
+
+}
+
+#main-nav a:first-child{
+  padding-left: 0;
+}
+
+.active{
+  text-decoration: underline !important; 
+}
+
+/*----------------MAP!------------------*/
+
+#map{
+  
+  background-color: bisque;
+  height: 550px;
+  margin-right: 20px;
+}
+
+#list-view{
+  display: none;
+}
+
+/*----------------"SORTTI-COLLECTION TRUCKS"------------------*/
+
+#collection-truck{
+  padding-left: 5%;
+  height: 100vh;
+  
+}
+#container {
+  display: flex;
+  width: 100%;
+}
+
+#map-container {
+  width: 60%;
+}
+
+#collection-truck h1 {
+  font-weight: bold;
+  font-size: 40px;
+  margin: 50px 0px 60px 0px;
+}
+
+#intro-text h2 {
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 20px;
+  
+}
+
+#intro-text p {
+  font-size: 20px;
+  margin: 10px 0px;
+}
+
+
+#sidebar{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+ 
+}
+
+#sidebar h2{
+  font-size: 24px;
+  font-weight: bold;
+  padding-bottom: 30px;
+}
+
+.sidebar-box{
+  width: 90%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  
+}
+
+.icon-container-purple{
+  width: 10%;
+  text-align: center;
+  background-color:var(--purple);
+  border-radius: 50%;
+  color: var(--white);
+  height: 100%;
+  padding: 17px;
+}
+
+.icon-container{
+  width: 10%;
+  text-align: center;
+  background-color:var(--turquoise);
+  border-radius: 50%;
+  color: var(--white);
+  height: 100%;
+  padding: 17px;
+}
+
+.icon-container2{
+  width: 10%;
+  text-align: center;
+  background-color:var(--grey);
+  border-radius: 50%;
+  color: var(--white);
+  height: 100%;
+  padding: 17px;
+}
+
+.sidebar-icon{
+  height: 2em;
+}
+
+.sidebar-text{
+  width: 70%;
+}
+
+.sidebar-text p{
+  font-size: 16px;
+  padding: 5px 0px 0px 0 ;
+}
+
+.sidebar-box p:first-child{
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0px 0 5px 0;
+}
+
