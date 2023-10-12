@@ -244,6 +244,10 @@ header {
   width: 45%;
 }
 
+.alert i{
+  margin: 0px 10px;
+}
+
 .black{
   fill: black;
   padding-right: 5px;
@@ -312,7 +316,11 @@ header {
   margin: auto;
   padding: 10px;
   font-size: 15px;
+  display: flex;
+}
 
+.elec-alert i{
+  margin: 0 10px;
 }
 
 
