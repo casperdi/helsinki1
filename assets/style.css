@@ -122,6 +122,10 @@ header {
   align-items: start;
   justify-content: space-between;
   width: 100%;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 #actual-list-helsinki {
