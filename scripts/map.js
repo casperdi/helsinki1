@@ -440,4 +440,22 @@ function navigateToMarker(marker, map) {
     }
   });
 }
+
+/**
+ * BUTTON CLICK FOR HIDING THE MAP
+ * AND SHOWING THE LIST
+ */
+function hideMap() {
+  let map = document.getElementById("map");
+  let stops = document.getElementById("list-of-stops")
+  map.classList.toggle('hidden-element');
+  stops.classList.toggle('hidden-element');
+  console.log("map hidden/shown")
+}
+
+let button = document.getElementById("map-or-list-button");
+button.addEventListener("click", hideMap);
+
+
+
 initMap();

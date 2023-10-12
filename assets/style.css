@@ -23,7 +23,7 @@ header {
   width: 5%;
   position: absolute;
   top: 0;
-  left: 0;  
+  left: 0;
 }
 #HSY{
   display: flex;
@@ -48,7 +48,7 @@ header {
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
-  color: var(--turquoise);  
+  color: var(--turquoise);
 
 }
 
@@ -58,7 +58,7 @@ header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
-  
+
 }
 
 
@@ -77,20 +77,48 @@ header {
 }
 
 .active{
-  text-decoration: underline !important; 
+  text-decoration: underline !important;
 }
 
 /*----------------MAP!------------------*/
 
 #map{
-  
+
   background-color: bisque;
   height: 550px;
   margin-right: 20px;
 }
 
+#list-of-stops{
+  background-color: bisque;
+  height: 550px;
+  margin-right: 20px;
+}
+
+.hidden-element {
+  display: none;
+}
+
 #list-view{
   display: none;
+}
+
+
+#map-or-list-button {
+  width: fit-content;
+  padding: 5px;
+  height: 30px;
+  color: black;
+  margin-left: 5%;
+  position: absolute;
+  bottom: 10px;
+  left: 25%;
+  z-index: 1;
+  border-radius: 15px;
+  border: none;
+}
+#map-or-list-button:active {
+  transform: scale(0.98);
 }
 
 /*----------------"SORTTI-COLLECTION TRUCKS"------------------*/
@@ -98,7 +126,7 @@ header {
 #collection-truck{
   padding-left: 5%;
   height: 100vh;
-  
+
 }
 #container {
   display: flex;
@@ -119,7 +147,7 @@ header {
   font-weight: bold;
   font-size: 30px;
   margin-bottom: 20px;
-  
+
 }
 
 #intro-text p {
@@ -133,7 +161,7 @@ header {
   display: flex;
   flex-direction: column;
   height: 100%;
- 
+
 }
 
 #sidebar h2{
@@ -149,7 +177,7 @@ header {
   display: flex;
   padding: 20px;
   justify-content: space-between;
-  
+
 }
 
 .icon-container-purple{
