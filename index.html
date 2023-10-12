@@ -7,15 +7,22 @@
     <title>Document</title>
     <link rel="stylesheet" href="assets/reset.css">
     <link rel="stylesheet" href="assets/style.css">
+
     <script src="https://kit.fontawesome.com/22c82907f2.js" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWBC23rDlpMW-TjxowoTviPEMkQ-W0bIM&callback=initMap"
             defer></script>
     <script src="scripts/proj4.js"></script>
     <script type="module" src="scripts/map.js"></script>
 </head>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet"></head>
+
 <body>
-    <img id="logo" src="assets/img/hsylogo.png" alt="">
+
     <header>
+
+
+
+        <img id="logo" src="assets/img/hsylogo.png" alt="">
 
         <div id="HSY">
             <h1>HSY</h1>
@@ -45,7 +52,7 @@
         <div id="container">
             <div id="map-container">
                 <div id="intro-text">
-                    <h2>Sortti-keräysautot kiertävät jälleen keväällä 2024</h2>
+                    <h2 class="minor-title">Sortti-keräysautot kiertävät jälleen keväällä 2024</h2>
                     <p>Sortti-keräysautomme ottavat jälleen maksutta vastaan vaarallista jätettä sekä metalli- ja sähköromua keväällä 2024.</p>
 
                 </div>
@@ -67,64 +74,70 @@
 
                 <div class="sidebar-box">
                     <div class="icon-container-purple">
-                        <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M64 464H96v48H64c-35.3 0-64-28.7-64-64V64C0 28.7 28.7 0 64 0H229.5c17 0 33.3 6.7 45.3 18.7l90.5 90.5c12 12 18.7 28.3 18.7 45.3V288H336V160H256c-17.7 0-32-14.3-32-32V48H64c-8.8 0-16 7.2-16 16V448c0 8.8 7.2 16 16 16zM176 352h32c30.9 0 56 25.1 56 56s-25.1 56-56 56H192v32c0 8.8-7.2 16-16 16s-16-7.2-16-16V448 368c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24H192v48h16zm96-80h32c26.5 0 48 21.5 48 48v64c0 26.5-21.5 48-48 48H304c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H320v96h16zm80-112c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16s-7.2 16-16 16H448v32h32c8.8 0 16 7.2 16 16s-7.2 16-16 16H448v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V432 368z"/></svg>
+                        <i class="fas fa-solid fa-file-pdf"></i>
                     </div>
                     <div class="sidebar-text">
                         <p>Täytä ja tulosta aikataulupohja</p>
                         <p>Kirjaa lähimmät keräysautojen pysähdyspaikat julisteeseen ja tulosta se taloyhtiösi jätetilaan</p>
                     </div>
                     <div class="icon-container2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg>
+
+                        <i class="fas fa-solid fa-download"></i>
+
                     </div>
                 </div>
 
                 <div class="sidebar-box">
                     <div class="icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M64 80c-8.8 0-16 7.2-16 16V416c0 8.8 7.2 16 16 16H512c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16H64zM0 96C0 60.7 28.7 32 64 32H512c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm96 64a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm104 0c0-13.3 10.7-24 24-24H448c13.3 0 24 10.7 24 24s-10.7 24-24 24H224c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24H448c13.3 0 24 10.7 24 24s-10.7 24-24 24H224c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24H448c13.3 0 24 10.7 24 24s-10.7 24-24 24H224c-13.3 0-24-10.7-24-24zm-72-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM96 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>
+
+                        <i class="fas fa-solid fa-bars"></i>
+
                     </div>
                     <div class="sidebar-text">
                         <p>Ehdota uutta pysähdyspaikkaa</p>
                         <p>Haluatko ehdottaa uutta pysähdyspaikkaa? Ota yhteyttä!</p>
                     </div>
                     <div class="icon-container2">
-                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+                        <i class="fas fa-solid fa-arrow-right"></i>
                     </div>
                 </div>
 
                 <div class="sidebar-box">
                     <div class="icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M429.6 92.1c4.9-11.9 2.1-25.6-7-34.7s-22.8-11.9-34.7-7l-352 144c-14.2 5.8-22.2 20.8-19.3 35.8s16.1 25.8 31.4 25.8H224V432c0 15.3 10.8 28.4 25.8 31.4s30-5.1 35.8-19.3l144-352z"/></svg>
+
+                        <i class="fas fa-solid fa-location-arrow"></i>
+
                     </div>
                     <div class="sidebar-text">
                         <p>Kierrätyskeskuksen keräysautot</p>
                         <p>Kirjaa lähimmät keräysautojen pysähdyspaikat julisteeseen ja tulosta se taloyhtiösi jätetilaan</p>
                     </div>
-                    <div class="icon-container2">
-                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+                   <div class="icon-container2">
+                        <i class="fas fa-solid fa-arrow-right"></i>
                     </div>
                 </div>
 
                 <div class="sidebar-box">
                     <div class="icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                        <i class="fas fa-solid fa-info"></i>
                     </div>
                     <div class="sidebar-text">
                         <p>Sortti-asemat</p>
                     </div>
                     <div class="icon-container2">
-                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+                        <i class="fas fa-solid fa-arrow-right"></i>
                     </div>
                 </div>
 
                 <div class="sidebar-box">
                     <div class="icon-container">
-                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                        <i class="fas fa-solid fa-info"></i>
                     </div>
                     <div class="sidebar-text">
                         <p>Sorttikontit kodin vaaralliselle jätteelle</p>
                     </div>
                     <div class="icon-container2">
-                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
+                        <i class="fas fa-solid fa-arrow-right"></i>
                     </div>
                 </div>
             </div>
@@ -135,68 +148,122 @@
     <section id="restrictions">
 
         <div>
-            <h2>Sortti-auton rajoitukset</h2>
-            <div>
-                <!-- icon -->
+
+            <h2 class="minor-title">Sortti-auton rajoitukset</h2>
+            <div class="alert">
+                <i class="fas fa-solid fa-exclamation"></i>
+
                 <p> Viethän suuret määrät, kuten peräkärrylastilliset, suoraan Sortti-asemalle tai romuliikkeisiin.</p>
             </div>
         </div>
 
-        <div>
+        <div id="restrictions-info">
             <div id="good">
-                <div>
-                    <!-- icon -->
-                    <h3>Vaarallinen jäte (ent. ongelmajäte)</h3>
-                    <p>Vaarallista jätettä ovat muun muassa energiansäästölamput, maalit, liuottimet, siivouskemikaalit ja akut.</p>
-                    <!-- icon -->
+                <div class="rest-box">
+                    <div class="icon-container3">
+                        <i class="fas fa-solid fa-check"></i>
+                    </div>
+
+                    <div class="sidebar-text">
+                        <h3>Vaarallinen jäte (ent. ongelmajäte)</h3>
+                    </div>
+                    <div class="icon-container">
+                        <i class="fas fa-solid fa-plus"></i>
+                    </div>
+                    <p class="add-info">Vaarallista jätettä ovat muun muassa energiansäästölamput, maalit, liuottimet, siivouskemikaalit ja akut.</p>
                 </div>
-                <div>
-                    <!-- icon -->
+                <div class="rest-box">
+                    <div class="icon-container3">
+                        <i class="fas fa-solid fa-check"></i>
+                    </div>
+
+                    <div class="sidebar-text">
                     <h3>Sähkö ja elektoriniikkaromu</h3>
-                    <p>Sähkölaiteromua ovat esimerkiksi jääkaapit, pakastimet, televisiot, kahvinkeittimet, pesukoneet, tietokoneet ja sähkövatkaimet. <br>
+                    </div>
+                    <div class="icon-container">
+                        <i class="fas fa-solid fa-plus"></i>
+                    </div>
+                    <p class="add-info">Sähkölaiteromua ovat esimerkiksi jääkaapit, pakastimet, televisiot, kahvinkeittimet, pesukoneet, tietokoneet ja sähkövatkaimet. <br>
                     Vie isommat määrät esimerkiksi peräkärrykuormalliset sähkölaitteita Sortti-asemille.</p>
 
-                    <div>
-                        <!-- icon -->
+                    <div class="elec-alert">
+                        <i class="fas fa-solid fa-exclamation"></i>
                         <p>Emme voi taata tietoturvaa. Käytä tarvittaessa esim. Seiffi.fi-palvelua muistia sisältävien laitteiden kuten tietokoneiden ja mobiililaitteiden hävitykseen.</p>
                     </div>
 
                     <!-- icon -->
-                </div><div>
-                    <!-- icon -->
+                </div>
+                <div class="rest-box">
+                    <div class="icon-container3">
+                        <i class="fas fa-solid fa-check"></i>
+                    </div>
+
+                    <div class="sidebar-text">
                     <h3>Metalliromu</h3>
-                    <p>Metalliromua ovat esimerkiksi polkupyörät, puulämmitteiset kiukaat, lämminvesivaraajat sekä metalliastiat ja -purkit.</p>
+                    </div>
+                    <div class="icon-container">
+                        <i class="fas fa-solid fa-plus"></i>
+                    </div>
+                    <p class="add-info">Metalliromua ovat esimerkiksi polkupyörät, puulämmitteiset kiukaat, lämminvesivaraajat sekä metalliastiat ja -purkit.</p>
                     <!-- icon -->
                 </div>
             </div>
 
             <div id="bad">
-                <div>
-                    <!-- icon -->
-                    <p>Painekyllästetty puu: katso <a href="https://www.hsy.fi/jatteet-ja-kierratys/jateopas/jatteet/painekyllastetty-puu-kestopuu/">vastaanottopaikat</a></p>
-                </div>
-                <div>
-                    <!-- icon -->
-                    <p>Ilotulitteet, hätäraketit, räjähteet, ammukset ja aseet tulee toimittaa poliisin osoittamaan paikkaan, paitsi hätäraketit niitä myyviin liikkeisiin.</p>
-                </div>
-                <div>
-                    <!-- icon -->
-                    <p>Lääkkeet tulee toimittaa apteekkiin.</p>
-                </div>
-                <div>
-                    <!-- icon -->
-                    <p>Vie isot kaasupullot Sortti-asemalle tai Kivikon vaarallisen jätteen asemalle ja vaarallista jätettä sisältävät tynnyrit Kivikon vaarallisen jätteen asemalle (avoinna arkisin 7-16).</p>
-                </div>
-                <div>
-                    <!-- icon -->
-                    <p>Autonrenkaiden vastaanotto Suomen Rengaskierrätys Oy:n <a href="https://www.rengaskierratys.com/kuluttajalle/vastaanottopisteet">vastaanottopisteillä</a>.</p>
-                </div>
-                <div>
-                    <!-- icon -->
-                    <p>Asbesti: katso <a href="https://www.hsy.fi/jatteet-ja-kierratys/jateopas/jatteet/asbesti/">ohjeet</a> .</p>
-                </div>
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                        <i class="fas fa-solid fa-minus"></i>
+                    </div>
 
+                    <div class="sidebar-text-bad">
+                        <p>Painekyllästetty puu: katso <a href="https://www.hsy.fi/jatteet-ja-kierratys/jateopas/jatteet/painekyllastetty-puu-kestopuu/">vastaanottopaikat</a></p>
+                    </div>
+                </div>
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                       <i class="fas fa-solid fa-minus"></i>
+                    </div>
 
+                    <div class="sidebar-text-bad">
+                        <p>Ilotulitteet, hätäraketit, räjähteet, ammukset ja aseet tulee toimittaa poliisin osoittamaan paikkaan, paitsi hätäraketit niitä myyviin liikkeisiin.</p>
+                    </div>
+                </div>
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                        <i class="fas fa-solid fa-minus"></i>
+                    </div>
+
+                    <div class="sidebar-text-bad">
+                        <p>Lääkkeet tulee toimittaa apteekkiin.</p>
+                    </div>
+                </div>
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                        <i class="fas fa-solid fa-minus"></i>
+                    </div>
+
+                    <div class="sidebar-text-bad">
+                        <p>Vie isot kaasupullot Sortti-asemalle tai Kivikon vaarallisen jätteen asemalle ja vaarallista jätettä sisältävät tynnyrit Kivikon vaarallisen jätteen asemalle (avoinna arkisin 7-16).</p>
+                    </div>
+                </div>
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                       <i class="fas fa-solid fa-minus"></i>
+                    </div>
+
+                    <div class="sidebar-text-bad">
+                        <p>Autonrenkaiden vastaanotto Suomen Rengaskierrätys Oy:n <a href="https://www.rengaskierratys.com/kuluttajalle/vastaanottopisteet">vastaanottopisteillä</a>.</p>
+                    </div>
+                </div>
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                        <i class="fas fa-solid fa-minus"></i>
+                    </div>
+
+                    <div class="sidebar-text-bad">
+                        <p>Asbesti: katso <a href="https://www.hsy.fi/jatteet-ja-kierratys/jateopas/jatteet/asbesti/">ohjeet</a> .</p>
+                    </div>
+                </div>
             </div>
         </div>
 
