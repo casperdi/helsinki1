@@ -232,6 +232,35 @@ function addMarker(
     console.log(navButtonId, 'Nav button ID');
   });
 
+  if(markerData[6] === "Helsinki"){
+    let helsinkiList = document.getElementById("actual-list-helsinki");
+    let child = document.createElement("p")
+    child.id = "helsinkiData1"
+    child.textContent = markerData[2] + "  |  " + markerData[3] + "  |  " + markerData[4]
+    helsinkiList.appendChild(child)
+  }
+  if(markerData[6] === "Vantaa"){
+    let helsinkiList = document.getElementById("actual-list-vantaa");
+    let child = document.createElement("p")
+    child.id = "vantaaData1"
+    child.textContent = markerData[2] + "  |  " + markerData[3] + "  |  " + markerData[4]
+    helsinkiList.appendChild(child)
+  }
+  if(markerData[6] === "Kirkkonummi"){
+    let helsinkiList = document.getElementById("actual-list-kirkkonummi");
+    let child = document.createElement("p")
+    child.id = "kirkkonummiData1"
+    child.textContent = markerData[2] + "  |  " + markerData[3] + "  |  " + markerData[4]
+    helsinkiList.appendChild(child)
+  }
+  if(markerData[6] === "Espoo"){
+    let helsinkiList = document.getElementById("actual-list-espoo");
+    let child = document.createElement("p")
+    child.id = "espooData1"
+    child.textContent = markerData[2] + "  |  " + markerData[3] + "  |  " + markerData[4]
+    helsinkiList.appendChild(child)
+  }
+
   return marker;
 }
 
@@ -442,8 +471,7 @@ function navigateToMarker(marker, map) {
 }
 
 /**
- * BUTTON CLICK FOR HIDING THE MAP
- * AND SHOWING THE LIST
+ * Function and event listener for button that switch between map and list
  */
 function hideMap() {
   let map = document.getElementById("map");
@@ -453,8 +481,160 @@ function hideMap() {
   console.log("map hidden/shown")
 }
 
-let button = document.getElementById("map-or-list-button");
-button.addEventListener("click", hideMap);
+let switchBtwnListAndMap = document.getElementById("map-or-list-button");
+switchBtwnListAndMap.addEventListener("click", hideMap);
+
+/**
+ * Following functions expand and shrink "Espoon pysähdyspaikat" list when clicking plus or minus button
+ * Under the fuctions are eventlisteners for those buttons
+ */
+function expandEspooList() {
+  let espoo = document.getElementById("espoon-pysahdyspaikat")
+  let espooicon = document.getElementById("icon-espoo")
+  let espooiconminus = document.getElementById("icon-espoo-minus")
+  let list = document.getElementById("actual-list-espoo")
+  espooicon.classList.toggle('hidden-element')
+  espooiconminus.classList.toggle('hidden-element')
+  espoo.style.height = "300px";
+  list.style.visibility = "visible"
+  espoo.style.overflowY = "scroll"
+
+
+}
+
+function shrinkEspooList(){
+  let espoo = document.getElementById("espoon-pysahdyspaikat")
+  let espooicon = document.getElementById("icon-espoo")
+  let espooiconminus = document.getElementById("icon-espoo-minus")
+  let list = document.getElementById("actual-list-espoo")
+  espooicon.classList.toggle('hidden-element')
+  espooiconminus.classList.toggle('hidden-element')
+  espoo.style.height = "11%"
+  list.style.visibility = "hidden"
+  espoo.style.overflowY = "hidden"
+
+
+}
+
+let iconEspooMinusButton = document.getElementById('icon-espoo-minus')
+iconEspooMinusButton.addEventListener("click", shrinkEspooList)
+
+let iconEspooButton = document.getElementById("icon-espoo");
+iconEspooButton.addEventListener("click", expandEspooList)
+
+function expandHelsinkiList() {
+  let espoo = document.getElementById("helsingin-pysahdyspaikat")
+  let espooicon = document.getElementById("icon-helsinki")
+  let espooiconminus = document.getElementById("icon-helsinki-minus")
+  let list = document.getElementById("actual-list-helsinki")
+  espooicon.classList.toggle('hidden-element')
+  espooiconminus.classList.toggle('hidden-element')
+  espoo.style.height = "300px";
+  list.style.visibility = "visible"
+  espoo.style.overflowY = "scroll"
+
+
+}
+
+function shrinkHelsinkiList(){
+  let espoo = document.getElementById("helsingin-pysahdyspaikat")
+  let espooicon = document.getElementById("icon-helsinki")
+  let espooiconminus = document.getElementById("icon-helsinki-minus")
+  let list = document.getElementById("actual-list-helsinki")
+  espooicon.classList.toggle('hidden-element')
+  espooiconminus.classList.toggle('hidden-element')
+  espoo.style.height = "11%"
+  list.style.visibility = "hidden"
+  espoo.style.overflowY = "hidden"
+
+
+
+}
+
+let iconHelsinkiButton = document.getElementById("icon-helsinki")
+iconHelsinkiButton.addEventListener("click", expandHelsinkiList)
+
+let iconHelsinkiMinusButton = document.getElementById('icon-helsinki-minus')
+iconHelsinkiMinusButton.addEventListener("click", shrinkHelsinkiList)
+
+function expandVantaaList() {
+  let espoo = document.getElementById("vantaan-pysahdyspaikat")
+  let espooicon = document.getElementById("icon-vantaa")
+  let espooiconminus = document.getElementById("icon-vantaa-minus")
+  let list = document.getElementById("actual-list-vantaa")
+  espooicon.classList.toggle('hidden-element')
+  espooiconminus.classList.toggle('hidden-element')
+  espoo.style.height = "300px";
+  espoo.style.overflowY = "scroll"
+  list.style.visibility = "visible"
+  espoo.style.overflowY = "scroll"
+
+
+}
+
+function shrinkVantaaList(){
+  let espoo = document.getElementById("vantaan-pysahdyspaikat")
+  let espooicon = document.getElementById("icon-vantaa")
+  let espooiconminus = document.getElementById("icon-vantaa-minus")
+  let list = document.getElementById("actual-list-vantaa")
+  espooicon.classList.toggle('hidden-element')
+  espooiconminus.classList.toggle('hidden-element')
+  espoo.style.height = "11%"
+  espoo.style.overflowY = "hidden"
+  list.style.visibility = "hidden"
+
+
+}
+
+let iconVantaaButton = document.getElementById('icon-vantaa')
+iconVantaaButton.addEventListener("click", expandVantaaList)
+
+let iconVantaaMinusButton = document.getElementById('icon-vantaa-minus')
+iconVantaaMinusButton.addEventListener("click", shrinkVantaaList)
+
+function expandKirkkonummiList() {
+  let espoo = document.getElementById("kirkkonummen-pysahdyspaikat")
+  let espooicon = document.getElementById("icon-kirkkonummi")
+  let espooiconminus = document.getElementById("icon-kirkkonummi-minus")
+  let list = document.getElementById("actual-list-kirkkonummi")
+  espooicon.classList.toggle('hidden-element')
+  espooiconminus.classList.toggle('hidden-element')
+  espoo.style.height = "300px"
+  list.style.visibility = "visible"
+  espoo.style.overflowY = "scroll"
+
+
+}
+
+function shrinkKirkkonummiList(){
+  let espoo = document.getElementById("kirkkonummen-pysahdyspaikat")
+  let espooicon = document.getElementById("icon-kirkkonummi")
+  let espooiconminus = document.getElementById("icon-kirkkonummi-minus")
+  let list = document.getElementById("actual-list-kirkkonummi")
+
+  espooicon.classList.toggle('hidden-element')
+  espooiconminus.classList.toggle('hidden-element')
+  espoo.style.height = "11%"
+  list.style.visibility = "hidden"
+  espoo.style.overflowY = "hidden"
+
+
+}
+
+
+let iconKirkkonummiButton = document.getElementById('icon-kirkkonummi')
+iconKirkkonummiButton.addEventListener("click", expandKirkkonummiList)
+
+let iconKirkkonummiMinusButton = document.getElementById('icon-kirkkonummi-minus')
+iconKirkkonummiMinusButton.addEventListener("click", shrinkKirkkonummiList)
+
+
+
+
+
+
+
+
 
 
 

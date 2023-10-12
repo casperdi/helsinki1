@@ -22,6 +22,7 @@ header {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
+  z-index: 2;
   width: 100%;
   background-color: var(--white);
 
@@ -91,7 +92,7 @@ header {
 }
 
 /*----------------MAP!------------------*/
-
+/*---Either map or list of stops are visible, never both at the same time */
 #map{
 
   background-color: bisque;
@@ -100,9 +101,105 @@ header {
 }
 
 #list-of-stops{
-  background-color: bisque;
   height: 550px;
   margin-right: 20px;
+}
+
+.rest-box2{
+  margin-top: 1%;
+  display: flex;
+  width: 60%;
+  height: 11%;
+  align-items: start;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  flex-wrap: wrap;
+  overflow-y: hidden;
+}
+
+.list-of-stops-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#actual-list-helsinki {
+  visibility: hidden;
+  margin-left: 2%;
+}
+#actual-list-vantaa {
+  visibility: hidden;
+  margin-left: 2%;
+}
+#actual-list-espoo {
+  visibility: hidden;
+  margin-left: 2%;
+}
+#actual-list-kirkkonummi {
+  visibility: hidden;
+  margin-left: 2%;
+}
+#helsinkiData1 {
+  text-decoration: underline;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+#vantaaData1 {
+  text-decoration: underline;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+#espooData1 {
+  text-decoration: underline;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+#kirkkonummiData1 {
+  text-decoration: underline;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+
+.list-of-stops-text {
+  font-weight: bold;
+  padding: 20px;
+}
+
+.icon-container5{
+  text-align: center;
+  padding: 6px;
+  background-color:var(--turquoise);
+  border-radius: 50%;
+  color: var(--white);
+  height: 30px;
+  width: 30px;
+  margin-right: 2.5%;
+  margin-top: 2.5%;
+
+
+}
+#icon-espoo-minus {
+  background-color:var(--red);
+}
+#icon-helsinki-minus {
+  background-color:var(--red);
+}
+#icon-vantaa-minus {
+  background-color:var(--red);
+}
+#icon-kirkkonummi-minus {
+  background-color:var(--red);
+}
+
+.good2{
+  width: 100%;
+  padding: 0;
+}
+#map-list-title {
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .hidden-element {
@@ -120,9 +217,9 @@ header {
   height: 30px;
   color: black;
   margin-left: 5%;
-  position: absolute;
-  bottom: 10px;
-  left: 25%;
+  position: relative;
+  bottom: 5%;
+  left: 40%;
   z-index: 1;
   border-radius: 15px;
   border: none;
@@ -135,8 +232,9 @@ header {
 
 #collection-truck{
   padding-left: 5%;
-  height: 135vh;
+  height: fit-content;
   margin-top: 200px;
+  margin-bottom: 100px;
 }
 #container {
   display: flex;
@@ -292,7 +390,7 @@ header {
   display: none;
 }
 
-#good{
+.good{
   width: 50%;
   padding: 15px;
 }
