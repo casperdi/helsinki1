@@ -477,6 +477,13 @@ function hideMap() {
   let map = document.getElementById("map");
   let stops = document.getElementById("list-of-stops")
   let filterbut = document.getElementById('filter-map-button-container');
+  let mapOrListBut = document.getElementById("map-or-list-button");
+  if (mapOrListBut.style.bottom === "-2%"){
+    mapOrListBut.style.bottom = "10%"
+  } else {
+    mapOrListBut.style.bottom = "-2%"
+  }
+
   map.classList.toggle('hidden-element');
   stops.classList.toggle('hidden-element');
   filterbut.classList.toggle('hidden-element');
