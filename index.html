@@ -50,6 +50,7 @@
     <h1>Sortti-keräysautot</h1>
     <div id="container">
         <div id="map-container">
+
             <div id="intro-text">
                 <h2 class="minor-title">Sortti-keräysautot kiertävät jälleen keväällä 2024</h2>
                 <p>Sortti-keräysautomme ottavat jälleen maksutta vastaan vaarallista jätettä sekä metalli- ja sähköromua
@@ -58,6 +59,12 @@
             </div>
             <!--These 2 divs contains map and list views, clicking the button hides other one and shows other one, map is shown as default -->
             <div id="map"></div>
+            <div id="searchContainer" class="hidden-element">
+                <input type="text" id="searchBox" placeholder="Kirjoita osoitteesi...">
+                <div id="searchButton">
+                    <i class="fas fa-solid fa-arrow-right"></i>
+                </div>
+            </div>
             <div id="list-of-stops" class="hidden-element">
 
                 <h2 id="map-list-title">Pysähdyspaikat ja -ajat:</h2>
@@ -131,7 +138,9 @@
                 </div>
             </div>
             <button id="map-or-list-button"><i class="fas fa-solid fa-bars"></i> Lista näkymä</button>
-
+            <div id="filter-map-button-container">
+                <button class="hidden-element" id="filter-button" >Filteröi</button>
+            </div>
             <div id="list-view">
                 <h2>Pysähdyspaikat- ja ajat:</h2>
 

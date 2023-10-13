@@ -476,8 +476,10 @@ function navigateToMarker(marker, map) {
 function hideMap() {
   let map = document.getElementById("map");
   let stops = document.getElementById("list-of-stops")
+  let filterbut = document.getElementById('filter-map-button-container');
   map.classList.toggle('hidden-element');
   stops.classList.toggle('hidden-element');
+  filterbut.classList.toggle('hidden-element');
   console.log("map hidden/shown")
 }
 
@@ -490,10 +492,7 @@ let vantaaShow = false
 let kirkkonummiShow = false
 let espooShow = false
 
-/**
- * Following functions expand and shrink "Espoon pysähdyspaikat" list when clicking plus or minus button
- * Under the fuctions are eventlisteners for those buttons
- */
+
 function expandEspooList() {
   let espoo = document.getElementById("espoon-pysahdyspaikat")
   let espooicon = document.getElementById("icon-espoo")
