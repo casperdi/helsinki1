@@ -139,7 +139,7 @@
             </div>
             <button id="map-or-list-button"><i class="fas fa-solid fa-bars"></i> Lista näkymä</button>
             <div id="filter-map-button-container">
-                <button class="hidden-element" id="filter-button" >Filteröi</button>
+                <button class="hidden-element" id="filter-button">Filteröi</button>
             </div>
             <div id="list-view">
                 <h2>Pysähdyspaikat- ja ajat:</h2>
@@ -362,63 +362,86 @@
 <section id="works">
 
     <div>
-        <h2>Näin toimit Sortti-keräysautoilla</h2>
+        <div id="work-section-header">
+            <h2 class="minor-title">Näin toimit Sortti-keräysautoilla</h2>
+        </div>
 
-        <p>
+        <p id="works-info-text">
             Mikäli saavut pysähdyspaikalle omalla autolla ennen keräysautoja, otathan huomioon viiden kuorma-auton
             vaatiman tilantarpeen ja parkkeeraat sivummalle. Muista myös odottaa ja pitää turvaväli, kunnes autot ovat
-            laskeneet lavansa alas. <br>
-            Luovutathan tavarasi vain HSY:n keltaisiin turvaliiveihin pukeutuneelle keräysautojen henkilökunnalle. <br>
+            laskeneet lavansa alas. <br><br>
+            Luovutathan tavarasi vain HSY:n keltaisiin turvaliiveihin pukeutuneelle keräysautojen henkilökunnalle.
+            <br><br>
             Keräysautoihin vietävät tavarat kannattaa lajitella kotona etukäteen erillisiin kasseihin tai laatikoihin,
             joista ne on helppo purkaa kyseistä jätelajia keräävään autoon. Jos et ole varma, minne tavarasi kuuluu
             lajitella, ympäristöneuvojamme ja keräysautojen henkilökunta auttaa tarvittaessa paikan päällä.
         </p>
     </div>
 
-    <div>
-        <div>
-            <div>
-                <p> 1 </p>
-                <h3>Vaaralliset jätteet</h3>
-                <p>
-                    Pidä vaaralliset jätteet erillään muista jätteistä ehjissä ja tiiviissä pakkauksissa. Jos jäte ei
-                    ole alkuperäisessä pakkauksessaan, kirjoita oman pakkauksesi päälle, mitä ainetta se sisältää.
-                    Tarvittaessa kerro sisällöstä vielä henkilökunnalle keräyspaikalla.
-                </p>
+    <div id="bottom-list-and-else">
+        <div id="works-list">
+            <div class="works-vaaralliset">
+                <div class="works-icon-1">
+                    <p style="color: white"> 1 </p>
+                </div>
+                <div>
+                    <h3 class="works-mini-title">Vaaralliset jätteet</h3>
+                    <p class="works-specific">
+                        Pidä vaaralliset jätteet erillään muista jätteistä ehjissä ja tiiviissä pakkauksissa. Jos jäte
+                        ei
+                        ole alkuperäisessä pakkauksessaan, kirjoita oman pakkauksesi päälle, mitä ainetta se sisältää.
+                        Tarvittaessa kerro sisällöstä vielä henkilökunnalle keräyspaikalla.
+                    </p>
+                </div>
             </div>
-            <div>
-                <p> 2 </p>
-                <h3>Sähkölaitteet</h3>
-                <p>
-                    Tuo sähkölaitteet ilman pahvilaatikoita. Tuothan kahvinkeittimet ilman lasista pannua ja imurit
-                    ilman pölypussia.
-                </p>
+            <div class="works-vaaralliset">
+                <div class="works-icon-1">
+                    <p style="color: white"> 2 </p>
+                </div>
+                <div>
+                    <h3 class="works-mini-title">Sähkölaitteet</h3>
+                    <p class="works-specific">
+                        Tuo sähkölaitteet ilman pahvilaatikoita. Tuothan kahvinkeittimet ilman lasista pannua ja imurit
+                        ilman pölypussia.
+                    </p>
+                </div>
             </div>
-            <div>
-                <p> 3 </p>
-                <h3>Metalliset tavarat</h3>
-                <p>
-                    Tuo metalliset tavarat kassissa tai laatikossa, josta voit kaataa ne suoraan lavalle.
-                </p>
+            <div class="works-vaaralliset">
+                <div class="works-icon-1">
+                    <p style="color: white"> 3 </p>
+                </div>
+                <div>
+                    <h3 class="works-mini-title">Metalliset tavarat</h3>
+                    <p class="works-specific">
+                        Tuo metalliset tavarat kassissa tai laatikossa, josta voit kaataa ne suoraan lavalle.
+                    </p>
+                </div>
             </div>
         </div>
 
-        <div>
+        <div id="did-you-know">
             <div>
+                <div id="did-you-know-title">
+                    <div id="info-icon">
+                        <i class="fas fa-solid fa-info" style="color:white"></i>
+                    </div>
+                    <h3 id="did-you-know-title-text">Tiesitkö tätä?</h3>
+                </div>
                 <!-- icon -->
-                <h3>Tiesitkö tätä?</h3>
-                <ul>
-                    <li>
+                <ul id="did-you-know-list">
+                    <li class="did-you-know-list-item">
                         Yksittäiset pienet sähkölaitteet (alle 25 cm) ja energiansäästölamput voit palauttaa niitä
                         myyviin suurimpiin liikkeisiin (erikoiskaupat, tavaratalot) ilman uuden laitteen
-                        ostovelvoitetta. Myymälä ottaa vastaan myös suuren laitteen, kun ostat tilalle uuden vastaavan
+                        ostovelvoitetta. Myymälä ottaa vastaan myös suuren laitteen, kun ostat tilalle uuden
+                        vastaavan
                         laitteen.
                     </li>
-                    <li>
-                        Paristoja voit palauttaa mihin tahansa niitä myyvään liikkeeseen. Muistathan teipata paristojen
+                    <li class="did-you-know-list-item">
+                        Paristoja voit palauttaa mihin tahansa niitä myyvään liikkeeseen. Muistathan teipata
+                        paristojen
                         navat!
                     </li>
-                    <li>
+                    <li class="did-you-know-list-item">
                         Lampuista vain energiansäästölamput ja loisteputket ovat vaarallista jätettä. Led-lamput
                         kuuluvat sähkölaitekeräykseen. Halogeenit ja hehkulamput voit laittaa sekajätteeseen.
                     </li>
@@ -426,6 +449,7 @@
             </div>
         </div>
     </div>
+
 </section>
 
 
