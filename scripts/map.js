@@ -1,6 +1,7 @@
 // Initialize and add the map
-const {Map} = await google.maps.importLibrary('maps');
-const wfsUrl = 'https://kartta.hsy.fi/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&TypeName=JH_Keraysautojen_pysahtymispaikat_2023';
+const { Map } = await google.maps.importLibrary('maps');
+const wfsUrl =
+  'https://kartta.hsy.fi/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&TypeName=JH_Keraysautojen_pysahtymispaikat_2023';
 let xmlData = '';
 const proxyUrl = 'https://corsproxy.io/?';
 let transposedDataArray;
@@ -9,17 +10,17 @@ let infoWindowOpen = false;
 
 function fetchAndParseXml() {
   return new Promise((resolve, reject) => {
-    fetch(proxyUrl + wfsUrl).
-    then((response) => response.text()).
-    then((xmlResponse) => {
-      xmlData = xmlResponse;
-      parseXmlToArray(xmlData);
-      resolve(); // Resolve the promise once data is processed
-    }).
-    catch((error) => {
-      console.error('Error fetching WFS data: ', error);
-      reject(error); // Reject the promise if there's an error
-    });
+    fetch(proxyUrl + wfsUrl)
+      .then((response) => response.text())
+      .then((xmlResponse) => {
+        xmlData = xmlResponse;
+        parseXmlToArray(xmlData);
+        resolve(); // Resolve the promise once data is processed
+      })
+      .catch((error) => {
+        console.error('Error fetching WFS data: ', error);
+        reject(error); // Reject the promise if there's an error
+      });
   });
 }
 
@@ -27,9 +28,11 @@ function parseXmlToArray(xmlString) {
   const parser = new DOMParser();
   const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
 
-  const nsResolver = xmlDoc.createNSResolver(xmlDoc.ownerDocument == null ?
-    xmlDoc.documentElement :
-    xmlDoc.ownerDocument.documentElement);
+  const nsResolver = xmlDoc.createNSResolver(
+    xmlDoc.ownerDocument == null
+      ? xmlDoc.documentElement
+      : xmlDoc.ownerDocument.documentElement
+  );
 
   const dataArray = [];
 
@@ -50,8 +53,12 @@ function parseXmlToArray(xmlString) {
 
   for (const elementName of elements) {
     const nodes = xmlDoc.evaluate(
-      `//jatteet_ja_materiaalitehokkuus:${elementName}`, xmlDoc, nsResolver,
-      XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+      `//jatteet_ja_materiaalitehokkuus:${elementName}`,
+      xmlDoc,
+      nsResolver,
+      XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+      null
+    );
     const dataItems = [];
 
     for (let i = 0; i < nodes.snapshotLength; i++) {
@@ -62,16 +69,16 @@ function parseXmlToArray(xmlString) {
   }
 
   // Transpose the dataArray to have each property as an array
-  transposedDataArray = dataArray[0].map(
-    (_, colIndex) => dataArray.map(row => row[colIndex]));
-
+  transposedDataArray = dataArray[0].map((_, colIndex) =>
+    dataArray.map((row) => row[colIndex])
+  );
 }
 
 //Placeholder variables for testing purposes
 let map;
 let myLat = 60.2704759;
 let myLong = 24.847957;
-let location = {lat: myLat, lng: myLong};
+let location = { lat: myLat, lng: myLong };
 let currentInfoWindow = null;
 
 /**
@@ -80,7 +87,7 @@ let currentInfoWindow = null;
  * @returns {Promise<void>}
  */
 async function initMap() {
-  const location = {lat: myLat, lng: myLong};
+  const location = { lat: myLat, lng: myLong };
 
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,
@@ -89,31 +96,40 @@ async function initMap() {
     styles: [
       {
         featureType: 'poi',
-        stylers: [
-          {visibility: 'off'},
-        ],
+        stylers: [{ visibility: 'off' }],
       },
     ],
   });
 
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      let userLatLng = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-      map.setCenter(userLatLng);
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        myLat = position.coords.latitude;
+        myLong = position.coords.longitude;
+        let userLatLng = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        map.setCenter(userLatLng);
 
-      addMarker(map, userLatLng, 'Your position', 'sad', 'Tee custom marker' +
-        ' data käyttäjän sijainnille', 350);
-    }, function(error) {
-      handleLocationError(error);
-    });
+        addMarker(
+          map,
+          userLatLng,
+          'Your position',
+          'sad',
+          'Tee custom marker' + ' data käyttäjän sijainnille',
+          350
+        );
+      },
+      function (error) {
+        handleLocationError(error);
+      }
+    );
   } else {
-    handleLocationError({code: 0, message: 'Geolocation is not supported'});
+    handleLocationError({ code: 0, message: 'Geolocation is not supported' });
   }
 
-  map.addListener('click', function() {
+  map.addListener('click', function () {
     if (currentInfoWindow) {
       currentInfoWindow.close();
       currentInfoWindow = null;
@@ -122,13 +138,13 @@ async function initMap() {
 
   await fetchAndParseXml();
 
-
-  proj4.defs('EPSG:3879',
-    '+proj=tmerc +lat_0=0 +lon_0=25 +k=1 +x_0=25500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
+  proj4.defs(
+    'EPSG:3879',
+    '+proj=tmerc +lat_0=0 +lon_0=25 +k=1 +x_0=25500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs'
+  );
   proj4.defs('EPSG:4326', '+proj=longlat +datum=WGS84 +no_defs');
 
   for (let i = 0; i < transposedDataArray.length; i++) {
-
     let asd = transposedDataArray[i];
     const sourceCoords = asd[11];
     const separateCoords = sourceCoords.split(',');
@@ -136,7 +152,8 @@ async function initMap() {
     if (separateCoords.length === 2) {
       separateSource = [
         parseFloat(separateCoords[0]),
-        parseFloat(separateCoords[1])];
+        parseFloat(separateCoords[1]),
+      ];
     }
 
     console.log('Source Coordinates (EPSG:3879):', separateSource);
@@ -148,12 +165,17 @@ async function initMap() {
     const latitude = targetCoords[1];
     const longitude = targetCoords[0];
 
-    let markerLatLng = {lat: latitude, lng: longitude};
+    let markerLatLng = { lat: latitude, lng: longitude };
     console.log(`Marker ${i}: Latitude ${latitude}, Longitude ${longitude}`);
-    const marker = addMarker(map, markerLatLng, asd[2].toString(),
-      'auto on paikalla ' + asd[3].toString(), asd, i);
+    const marker = addMarker(
+      map,
+      markerLatLng,
+      asd[2].toString(),
+      'auto on paikalla ' + asd[3].toString(),
+      asd,
+      i
+    );
     googleMarkers.push(marker);
-
   }
 }
 
@@ -170,7 +192,13 @@ async function initMap() {
  * @param markerIndex
  */
 function addMarker(
-  map, latLng, customTitle, customText, markerData, markerIndex) {
+  map,
+  latLng,
+  customTitle,
+  customText,
+  markerData,
+  markerIndex
+) {
   console.log('Adding marker with title:', customTitle);
   console.log('Marker Index', markerIndex);
   const navButtonId = `navigationButton_${markerIndex}`;
@@ -199,10 +227,9 @@ function addMarker(
   marker.markerData = markerData || [];
 
   // Add click event listener for opening the info window
-  marker.addListener('click', function() {
+  marker.addListener('click', function () {
     if (currentInfoWindow) {
       currentInfoWindow.close();
-
     }
     infoWindow.open(map, marker);
     console.log('Marker Index', markerIndex);
@@ -219,12 +246,12 @@ function addMarker(
     if (separateCoords.length === 2) {
       separateSource = [
         parseFloat(separateCoords[0]),
-        parseFloat(separateCoords[1])];
+        parseFloat(separateCoords[1]),
+      ];
     }
 
     console.log('Source Coordinates (EPSG:3879):', separateSource);
     //let markerButton = document.getElementById("navigationButton_15");
-
 
     const targetCoords = proj4('EPSG:3879', 'EPSG:4326', separateSource);
 
@@ -232,33 +259,37 @@ function addMarker(
     console.log(navButtonId, 'Nav button ID');
   });
 
-  if(markerData[6] === "Helsinki"){
-    let helsinkiList = document.getElementById("actual-list-helsinki");
-    let child = document.createElement("p")
-    child.id = "helsinkiData1"
-    child.textContent = markerData[2] + "  |  " + markerData[3] + "  |  " + markerData[4]
-    helsinkiList.appendChild(child)
+  if (markerData[6] === 'Helsinki') {
+    let helsinkiList = document.getElementById('actual-list-helsinki');
+    let child = document.createElement('p');
+    child.id = 'helsinkiData1';
+    child.textContent =
+      markerData[2] + '  |  ' + markerData[3] + '  |  ' + markerData[4];
+    helsinkiList.appendChild(child);
   }
-  if(markerData[6] === "Vantaa"){
-    let helsinkiList = document.getElementById("actual-list-vantaa");
-    let child = document.createElement("p")
-    child.id = "vantaaData1"
-    child.textContent = markerData[2] + "  |  " + markerData[3] + "  |  " + markerData[4]
-    helsinkiList.appendChild(child)
+  if (markerData[6] === 'Vantaa') {
+    let helsinkiList = document.getElementById('actual-list-vantaa');
+    let child = document.createElement('p');
+    child.id = 'vantaaData1';
+    child.textContent =
+      markerData[2] + '  |  ' + markerData[3] + '  |  ' + markerData[4];
+    helsinkiList.appendChild(child);
   }
-  if(markerData[6] === "Kirkkonummi"){
-    let helsinkiList = document.getElementById("actual-list-kirkkonummi");
-    let child = document.createElement("p")
-    child.id = "kirkkonummiData1"
-    child.textContent = markerData[2] + "  |  " + markerData[3] + "  |  " + markerData[4]
-    helsinkiList.appendChild(child)
+  if (markerData[6] === 'Kirkkonummi') {
+    let helsinkiList = document.getElementById('actual-list-kirkkonummi');
+    let child = document.createElement('p');
+    child.id = 'kirkkonummiData1';
+    child.textContent =
+      markerData[2] + '  |  ' + markerData[3] + '  |  ' + markerData[4];
+    helsinkiList.appendChild(child);
   }
-  if(markerData[6] === "Espoo"){
-    let helsinkiList = document.getElementById("actual-list-espoo");
-    let child = document.createElement("p")
-    child.id = "espooData1"
-    child.textContent = markerData[2] + "  |  " + markerData[3] + "  |  " + markerData[4]
-    helsinkiList.appendChild(child)
+  if (markerData[6] === 'Espoo') {
+    let helsinkiList = document.getElementById('actual-list-espoo');
+    let child = document.createElement('p');
+    child.id = 'espooData1';
+    child.textContent =
+      markerData[2] + '  |  ' + markerData[3] + '  |  ' + markerData[4];
+    helsinkiList.appendChild(child);
   }
 
   return marker;
@@ -274,10 +305,10 @@ function handleLocationError(error) {
       console.error('Permission to access location was denied by the user.');
       break;
     case 2:
-      console.error('The user\'s location information is unavailable.');
+      console.error("The user's location information is unavailable.");
       break;
     case 3:
-      console.error('The request to get the user\'s location timed out.');
+      console.error("The request to get the user's location timed out.");
       break;
     default:
       console.error('An unknown error occurred.');
@@ -338,9 +369,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(lat1 * (Math.PI / 180)) *
-    Math.cos(lat2 * (Math.PI / 180)) *
-    Math.sin(dLon / 2) *
-    Math.sin(dLon / 2);
+      Math.cos(lat2 * (Math.PI / 180)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c; // Distance in kilometers
   return distance * 1000; // Convert to meters
@@ -356,7 +387,7 @@ function filterMarkersByDistance() {
     const markerLatLng = marker.getPosition();
     const distance = google.maps.geometry.spherical.computeDistanceBetween(
       userLatLng,
-      markerLatLng,
+      markerLatLng
     );
 
     if (distance <= maxDistance) {
@@ -374,7 +405,7 @@ function filterMarkersByDistance() {
 function calcRoute() {
   const directionsService = new google.maps.DirectionsService();
   let directionsDisplay = new google.maps.DirectionsRenderer();
-  const directionsRenderer = new google.maps.DirectionsRenderer({map: map});
+  const directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
   const markkerit = [];
   const targetDate = '10.05.2023';
 
@@ -404,8 +435,9 @@ function calcRoute() {
 
   const invisibleMarkers = []; // An array to store invisible markers
 
-// Create invisible markers for waypoints
-  for (let i = 1; i < markkerit.length - 1; i++) { // Exclude the first and last markers
+  // Create invisible markers for waypoints
+  for (let i = 1; i < markkerit.length - 1; i++) {
+    // Exclude the first and last markers
     const waypoint = new google.maps.Marker({
       position: {
         lat: markkerit[i].markerData[11][1],
@@ -434,7 +466,7 @@ function calcRoute() {
     travelMode: google.maps.TravelMode.DRIVING, // You can also use 'WALKING', 'BICYCLING', or 'TRANSIT'
   };
 
-  directionsService.route(request, function(result, status) {
+  directionsService.route(request, function (result, status) {
     if (status === google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(result);
       directionsDisplay.setMap(map);
@@ -459,7 +491,7 @@ function navigateToMarker(marker, map) {
     travelMode: google.maps.TravelMode.DRIVING, // You can change this to other modes like walking or bicycling
   };
 
-  directionsService.route(request, function(response, status) {
+  directionsService.route(request, function (response, status) {
     if (status === 'OK') {
       // Display the route on the map
       directionsRenderer.setDirections(response);
@@ -474,229 +506,268 @@ function navigateToMarker(marker, map) {
  * Function and event listener for button that switch between map and list
  */
 function hideMap() {
-  let map = document.getElementById("map");
-  let stops = document.getElementById("list-of-stops")
+  let map = document.getElementById('map');
+  let stops = document.getElementById('list-of-stops');
   let filterbut = document.getElementById('filter-map-button-container');
-  let mapOrListBut = document.getElementById("map-or-list-button");
-  if (mapOrListBut.style.bottom === "-2%"){
-    mapOrListBut.style.bottom = "10%"
+  let mapOrListBut = document.getElementById('map-or-list-button');
+  if (mapOrListBut.style.bottom === '-2%') {
+    mapOrListBut.style.bottom = '10%';
   } else {
-    mapOrListBut.style.bottom = "-2%"
+    mapOrListBut.style.bottom = '-2%';
   }
 
   map.classList.toggle('hidden-element');
   stops.classList.toggle('hidden-element');
   filterbut.classList.toggle('hidden-element');
-  console.log("map hidden/shown")
+  console.log('map hidden/shown');
 }
 
-let switchBtwnListAndMap = document.getElementById("map-or-list-button");
-switchBtwnListAndMap.addEventListener("click", hideMap);
+let switchBtwnListAndMap = document.getElementById('map-or-list-button');
+switchBtwnListAndMap.addEventListener('click', hideMap);
 
-
-let helsinkiShow = false
-let vantaaShow = false
-let kirkkonummiShow = false
-let espooShow = false
-
+let helsinkiShow = false;
+let vantaaShow = false;
+let kirkkonummiShow = false;
+let espooShow = false;
+let dangerShow = false;
+let electronicShow = false;
+let metalShow = false;
 
 function expandEspooList() {
-  let espoo = document.getElementById("espoon-pysahdyspaikat")
-  let espooicon = document.getElementById("icon-espoo")
-  let espooiconminus = document.getElementById("icon-espoo-minus")
-  let list = document.getElementById("actual-list-espoo")
-  espooShow = true
-  espooicon.classList.toggle('hidden-element')
-  espooiconminus.classList.toggle('hidden-element')
-  espoo.style.height = "300px";
-  list.style.visibility = "visible"
-  espoo.style.overflowY = "scroll"
-
-
+  let espoo = document.getElementById('espoon-pysahdyspaikat');
+  let espooicon = document.getElementById('icon-espoo');
+  let espooiconminus = document.getElementById('icon-espoo-minus');
+  let list = document.getElementById('actual-list-espoo');
+  espooShow = true;
+  espooicon.classList.toggle('hidden-element');
+  espooiconminus.classList.toggle('hidden-element');
+  espoo.style.height = '300px';
+  list.style.visibility = 'visible';
+  espoo.style.overflowY = 'scroll';
 }
 
-function shrinkEspooList(){
-  let espoo = document.getElementById("espoon-pysahdyspaikat")
-  let espooicon = document.getElementById("icon-espoo")
-  let espooiconminus = document.getElementById("icon-espoo-minus")
-  let list = document.getElementById("actual-list-espoo")
-  espooShow = false
-  espooicon.classList.toggle('hidden-element')
-  espooiconminus.classList.toggle('hidden-element')
-  espoo.style.height = "11%"
-  list.style.visibility = "hidden"
-  espoo.style.overflowY = "hidden"
-
+function shrinkEspooList() {
+  let espoo = document.getElementById('espoon-pysahdyspaikat');
+  let espooicon = document.getElementById('icon-espoo');
+  let espooiconminus = document.getElementById('icon-espoo-minus');
+  let list = document.getElementById('actual-list-espoo');
+  espooShow = false;
+  espooicon.classList.toggle('hidden-element');
+  espooiconminus.classList.toggle('hidden-element');
+  espoo.style.height = '11%';
+  list.style.visibility = 'hidden';
+  espoo.style.overflowY = 'hidden';
 }
-
-
-
-
 
 function expandHelsinkiList() {
-  let espoo = document.getElementById("helsingin-pysahdyspaikat")
-  let espooicon = document.getElementById("icon-helsinki")
-  let espooiconminus = document.getElementById("icon-helsinki-minus")
-  let list = document.getElementById("actual-list-helsinki")
-  helsinkiShow = true
-  espooicon.classList.toggle('hidden-element')
-  espooiconminus.classList.toggle('hidden-element')
-  espoo.style.height = "300px";
-  list.style.visibility = "visible"
-  espoo.style.overflowY = "scroll"
-
-
+  let espoo = document.getElementById('helsingin-pysahdyspaikat');
+  let espooicon = document.getElementById('icon-helsinki');
+  let espooiconminus = document.getElementById('icon-helsinki-minus');
+  let list = document.getElementById('actual-list-helsinki');
+  helsinkiShow = true;
+  espooicon.classList.toggle('hidden-element');
+  espooiconminus.classList.toggle('hidden-element');
+  espoo.style.height = '300px';
+  list.style.visibility = 'visible';
+  espoo.style.overflowY = 'scroll';
 }
 
-function shrinkHelsinkiList(){
-  let espoo = document.getElementById("helsingin-pysahdyspaikat")
-  let espooicon = document.getElementById("icon-helsinki")
-  let espooiconminus = document.getElementById("icon-helsinki-minus")
-  let list = document.getElementById("actual-list-helsinki")
-  helsinkiShow = false
-  espooicon.classList.toggle('hidden-element')
-  espooiconminus.classList.toggle('hidden-element')
-  espoo.style.height = "11%"
-  list.style.visibility = "hidden"
-  espoo.style.overflowY = "hidden"
-
+function shrinkHelsinkiList() {
+  let espoo = document.getElementById('helsingin-pysahdyspaikat');
+  let espooicon = document.getElementById('icon-helsinki');
+  let espooiconminus = document.getElementById('icon-helsinki-minus');
+  let list = document.getElementById('actual-list-helsinki');
+  helsinkiShow = false;
+  espooicon.classList.toggle('hidden-element');
+  espooiconminus.classList.toggle('hidden-element');
+  espoo.style.height = '11%';
+  list.style.visibility = 'hidden';
+  espoo.style.overflowY = 'hidden';
 }
 
 function expandVantaaList() {
-  let espoo = document.getElementById("vantaan-pysahdyspaikat")
-  let espooicon = document.getElementById("icon-vantaa")
-  let espooiconminus = document.getElementById("icon-vantaa-minus")
-  let list = document.getElementById("actual-list-vantaa")
-  vantaaShow = true
-  espooicon.classList.toggle('hidden-element')
-  espooiconminus.classList.toggle('hidden-element')
-  espoo.style.height = "300px";
-  espoo.style.overflowY = "scroll"
-  list.style.visibility = "visible"
-  espoo.style.overflowY = "scroll"
-
+  let espoo = document.getElementById('vantaan-pysahdyspaikat');
+  let espooicon = document.getElementById('icon-vantaa');
+  let espooiconminus = document.getElementById('icon-vantaa-minus');
+  let list = document.getElementById('actual-list-vantaa');
+  vantaaShow = true;
+  espooicon.classList.toggle('hidden-element');
+  espooiconminus.classList.toggle('hidden-element');
+  espoo.style.height = '300px';
+  espoo.style.overflowY = 'scroll';
+  list.style.visibility = 'visible';
+  espoo.style.overflowY = 'scroll';
 }
 
-function shrinkVantaaList(){
-  let espoo = document.getElementById("vantaan-pysahdyspaikat")
-  let espooicon = document.getElementById("icon-vantaa")
-  let espooiconminus = document.getElementById("icon-vantaa-minus")
-  let list = document.getElementById("actual-list-vantaa")
-  vantaaShow = false
-  espooicon.classList.toggle('hidden-element')
-  espooiconminus.classList.toggle('hidden-element')
-  espoo.style.height = "11%"
-  espoo.style.overflowY = "hidden"
-  list.style.visibility = "hidden"
-
+function shrinkVantaaList() {
+  let espoo = document.getElementById('vantaan-pysahdyspaikat');
+  let espooicon = document.getElementById('icon-vantaa');
+  let espooiconminus = document.getElementById('icon-vantaa-minus');
+  let list = document.getElementById('actual-list-vantaa');
+  vantaaShow = false;
+  espooicon.classList.toggle('hidden-element');
+  espooiconminus.classList.toggle('hidden-element');
+  espoo.style.height = '11%';
+  espoo.style.overflowY = 'hidden';
+  list.style.visibility = 'hidden';
 }
 
 function expandKirkkonummiList() {
-  let espoo = document.getElementById("kirkkonummen-pysahdyspaikat")
-  let espooicon = document.getElementById("icon-kirkkonummi")
-  let espooiconminus = document.getElementById("icon-kirkkonummi-minus")
-  let list = document.getElementById("actual-list-kirkkonummi")
-  kirkkonummiShow = true
-  espooicon.classList.toggle('hidden-element')
-  espooiconminus.classList.toggle('hidden-element')
-  espoo.style.height = "300px"
-  list.style.visibility = "visible"
-  espoo.style.overflowY = "scroll"
-
+  let espoo = document.getElementById('kirkkonummen-pysahdyspaikat');
+  let espooicon = document.getElementById('icon-kirkkonummi');
+  let espooiconminus = document.getElementById('icon-kirkkonummi-minus');
+  let list = document.getElementById('actual-list-kirkkonummi');
+  kirkkonummiShow = true;
+  espooicon.classList.toggle('hidden-element');
+  espooiconminus.classList.toggle('hidden-element');
+  espoo.style.height = '300px';
+  list.style.visibility = 'visible';
+  espoo.style.overflowY = 'scroll';
 }
 
-function shrinkKirkkonummiList(){
-  let espoo = document.getElementById("kirkkonummen-pysahdyspaikat")
-  let espooicon = document.getElementById("icon-kirkkonummi")
-  let espooiconminus = document.getElementById("icon-kirkkonummi-minus")
-  let list = document.getElementById("actual-list-kirkkonummi")
-  kirkkonummiShow = false
-  espooicon.classList.toggle('hidden-element')
-  espooiconminus.classList.toggle('hidden-element')
-  espoo.style.height = "11%"
-  list.style.visibility = "hidden"
-  espoo.style.overflowY = "hidden"
-
+function shrinkKirkkonummiList() {
+  let espoo = document.getElementById('kirkkonummen-pysahdyspaikat');
+  let espooicon = document.getElementById('icon-kirkkonummi');
+  let espooiconminus = document.getElementById('icon-kirkkonummi-minus');
+  let list = document.getElementById('actual-list-kirkkonummi');
+  kirkkonummiShow = false;
+  espooicon.classList.toggle('hidden-element');
+  espooiconminus.classList.toggle('hidden-element');
+  espoo.style.height = '11%';
+  list.style.visibility = 'hidden';
+  espoo.style.overflowY = 'hidden';
 }
 
-function closeAllButKirkkonummi(){
-  if(vantaaShow === true){
-    shrinkVantaaList()
-  }
-  if(espooShow === true){
-    shrinkEspooList()
-  }
-  if(helsinkiShow === true){
-    shrinkHelsinkiList()
-  }
-  expandKirkkonummiList()
+function expandDanger() {
+  let dangerIcon = document.getElementById('danger-plus');
+  let dangerIconMinus = document.getElementById('danger-minus');
+  let list = document.getElementById('danger-info');
+  dangerShow = true;
+  dangerIcon.classList.toggle('hidden-element');
+  dangerIconMinus.classList.toggle('hidden-element');
+  list.classList.toggle('hidden-element');
+}
+function expandElectronic() {
+  let elecIcon = document.getElementById('elec-plus');
+  let elecIconMinus = document.getElementById('elec-minus');
+  let list = document.getElementById('elec-info');
+  electronicShow = true;
+  elecIcon.classList.toggle('hidden-element');
+  elecIconMinus.classList.toggle('hidden-element');
+  list.classList.toggle('hidden-element');
+}
+function expandMetal() {
+  let metalIcon = document.getElementById('metal-plus');
+  let metalIconMinus = document.getElementById('metal-minus');
+  let list = document.getElementById('metal-info');
+  metalShow = true;
+  metalIcon.classList.toggle('hidden-element');
+  metalIconMinus.classList.toggle('hidden-element');
+  list.classList.toggle('hidden-element');
 }
 
-function closeAllButEspoo(){
-  if(vantaaShow === true){
-    shrinkVantaaList()
+function closeAllButKirkkonummi() {
+  if (vantaaShow === true) {
+    shrinkVantaaList();
   }
-  if(kirkkonummiShow === true){
-    shrinkKirkkonummiList()
+  if (espooShow === true) {
+    shrinkEspooList();
   }
-  if(helsinkiShow === true){
-    shrinkHelsinkiList()
+  if (helsinkiShow === true) {
+    shrinkHelsinkiList();
   }
-  expandEspooList()
+  expandKirkkonummiList();
 }
 
-function closeAllButVantaa(){
-  if(kirkkonummiShow === true){
-    shrinkKirkkonummiList()
+function closeAllButEspoo() {
+  if (vantaaShow === true) {
+    shrinkVantaaList();
   }
-  if(espooShow === true){
-    shrinkEspooList()
+  if (kirkkonummiShow === true) {
+    shrinkKirkkonummiList();
   }
-  if(helsinkiShow === true){
-    shrinkHelsinkiList()
+  if (helsinkiShow === true) {
+    shrinkHelsinkiList();
   }
-  expandVantaaList()
+  expandEspooList();
 }
 
-function closeAllButHelsinki(){
-  if(vantaaShow === true){
-    shrinkVantaaList()
+function closeAllButVantaa() {
+  if (kirkkonummiShow === true) {
+    shrinkKirkkonummiList();
   }
-  if(espooShow === true){
-    shrinkEspooList()
+  if (espooShow === true) {
+    shrinkEspooList();
   }
-  if(kirkkonummiShow === true){
-    shrinkKirkkonummiList()
+  if (helsinkiShow === true) {
+    shrinkHelsinkiList();
   }
-  expandHelsinkiList()
+  expandVantaaList();
 }
 
-let iconKirkkonummiButton = document.getElementById('icon-kirkkonummi')
-iconKirkkonummiButton.addEventListener("click", closeAllButKirkkonummi)
+function closeAllButHelsinki() {
+  if (vantaaShow === true) {
+    shrinkVantaaList();
+  }
+  if (espooShow === true) {
+    shrinkEspooList();
+  }
+  if (kirkkonummiShow === true) {
+    shrinkKirkkonummiList();
+  }
+  expandHelsinkiList();
+}
 
-let iconKirkkonummiMinusButton = document.getElementById('icon-kirkkonummi-minus')
-iconKirkkonummiMinusButton.addEventListener("click", shrinkKirkkonummiList)
+document
+  .getElementById('kirkkonummen-pysahdyspaikat')
+  .addEventListener('click', function () {
+    if (kirkkonummiShow === false) {
+      closeAllButKirkkonummi();
+    } else {
+      shrinkKirkkonummiList();
+    }
+  });
+document
+  .getElementById('espoon-pysahdyspaikat')
+  .addEventListener('click', function () {
+    if (espooShow === false) {
+      closeAllButEspoo();
+    } else {
+      shrinkEspooList();
+    }
+  });
+document
+  .getElementById('vantaan-pysahdyspaikat')
+  .addEventListener('click', function () {
+    if (vantaaShow === false) {
+      closeAllButVantaa();
+    } else {
+      shrinkVantaaList();
+    }
+  });
+document
+  .getElementById('helsingin-pysahdyspaikat')
+  .addEventListener('click', function () {
+    if (helsinkiShow === false) {
+      closeAllButHelsinki();
+    } else {
+      shrinkHelsinkiList();
+    }
+  });
 
-let iconVantaaButton = document.getElementById('icon-vantaa')
-iconVantaaButton.addEventListener("click", closeAllButVantaa)
+document.getElementById('danger-waste').addEventListener('click', function () {
+  expandDanger();
+});
+document
+  .getElementById('electronic-waste')
+  .addEventListener('click', function () {
+    expandElectronic();
+  });
+document.getElementById('metal-waste').addEventListener('click', function () {
+  expandMetal();
+});
 
-let iconVantaaMinusButton = document.getElementById('icon-vantaa-minus')
-iconVantaaMinusButton.addEventListener("click", shrinkVantaaList)
-
-let iconHelsinkiButton = document.getElementById("icon-helsinki")
-iconHelsinkiButton.addEventListener("click", closeAllButHelsinki)
-
-let iconHelsinkiMinusButton = document.getElementById('icon-helsinki-minus')
-iconHelsinkiMinusButton.addEventListener("click", shrinkHelsinkiList)
-
-let iconEspooMinusButton = document.getElementById('icon-espoo-minus')
-iconEspooMinusButton.addEventListener("click", shrinkEspooList)
-
-let iconEspooButton = document.getElementById("icon-espoo");
-iconEspooButton.addEventListener("click", closeAllButEspoo)
-
-
-
-
+let filterButton = document.getElementById('filter-button');
+filterButton.addEventListener('click', filterMarkersByDistance);
 
 initMap();
