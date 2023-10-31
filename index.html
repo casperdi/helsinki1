@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="assets/style.css">
 
     <script src="https://kit.fontawesome.com/22c82907f2.js" crossorigin="anonymous"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWBC23rDlpMW-TjxowoTviPEMkQ-W0bIM&callback=initMap"
-            defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWBC23rDlpMW-TjxowoTviPEMkQ-W0bIM&libraries=places,directions&callback=initMap"
+            async defer></script>
     <script src="scripts/proj4.js"></script>
     <script type="module" src="scripts/map.js"></script>
 </head>
@@ -238,7 +238,7 @@
 
     <div id="restrictions-info">
         <div class="good">
-            <div class="rest-box">
+            <div id="danger-waste" class="rest-box">
                 <div class="icon-container3">
                     <i class="fas fa-solid fa-check"></i>
                 </div>
@@ -246,13 +246,16 @@
                 <div class="sidebar-text">
                     <h3>Vaarallinen jäte (ent. ongelmajäte)</h3>
                 </div>
-                <div class="icon-container">
-                    <i class="fas fa-solid fa-plus"></i>
+                <div id="danger-plus" class="icon-container">
+                    <i  class="fas fa-solid fa-plus"></i>
                 </div>
-                <p class="add-info">Vaarallista jätettä ovat muun muassa energiansäästölamput, maalit, liuottimet,
+                 <div id="danger-minus" class="icon-container4 hidden-element">
+                     <i  class="fas fa-solid fa-minus"></i>
+                </div>
+                <p id="danger-info" class="add-info hidden-element">Vaarallista jätettä ovat muun muassa energiansäästölamput, maalit, liuottimet,
                     siivouskemikaalit ja akut.</p>
             </div>
-            <div class="rest-box">
+            <div id="electronic-waste" class="rest-box">
                 <div class="icon-container3">
                     <i class="fas fa-solid fa-check"></i>
                 </div>
@@ -260,22 +263,26 @@
                 <div class="sidebar-text">
                     <h3>Sähkö ja elektoriniikkaromu</h3>
                 </div>
-                <div class="icon-container">
-                    <i class="fas fa-solid fa-plus"></i>
+                <div id="elec-plus" class="icon-container">
+                    <i  class="fas fa-solid fa-plus"></i>
                 </div>
-                <p class="add-info">Sähkölaiteromua ovat esimerkiksi jääkaapit, pakastimet, televisiot, kahvinkeittimet,
-                    pesukoneet, tietokoneet ja sähkövatkaimet. <br>
-                    Vie isommat määrät esimerkiksi peräkärrykuormalliset sähkölaitteita Sortti-asemille.</p>
+                 <div id="elec-minus" class="icon-container4 hidden-element">
+                     <i  class="fas fa-solid fa-minus"></i>
+                </div>
+                <div id="elec-info" class="hidden-element">
+                    <p class="add-info ">Sähkölaiteromua ovat esimerkiksi jääkaapit, pakastimet, televisiot, kahvinkeittimet,
+                        pesukoneet, tietokoneet ja sähkövatkaimet. <br>
+                        Vie isommat määrät esimerkiksi peräkärrykuormalliset sähkölaitteita Sortti-asemille.</p>
 
-                <div class="elec-alert">
-                    <i class="fas fa-solid fa-exclamation"></i>
-                    <p>Emme voi taata tietoturvaa. Käytä tarvittaessa esim. Seiffi.fi-palvelua muistia sisältävien
-                        laitteiden kuten tietokoneiden ja mobiililaitteiden hävitykseen.</p>
+                    <div class="elec-alert">
+                        <i class="fas fa-solid fa-exclamation"></i>
+                        <p>Emme voi taata tietoturvaa. Käytä tarvittaessa esim. Seiffi.fi-palvelua muistia sisältävien
+                            laitteiden kuten tietokoneiden ja mobiililaitteiden hävitykseen.</p>
+                    </div>
                 </div>
 
-                <!-- icon -->
             </div>
-            <div class="rest-box">
+            <div id="metal-waste" class="rest-box">
                 <div class="icon-container3">
                     <i class="fas fa-solid fa-check"></i>
                 </div>
@@ -283,10 +290,13 @@
                 <div class="sidebar-text">
                     <h3>Metalliromu</h3>
                 </div>
-                <div class="icon-container">
+                <div id="metal-plus" class="icon-container">
                     <i class="fas fa-solid fa-plus"></i>
                 </div>
-                <p class="add-info">Metalliromua ovat esimerkiksi polkupyörät, puulämmitteiset kiukaat,
+                 <div id="metal-minus" class="icon-container4 hidden-element">
+                     <i  class="fas fa-solid fa-minus"></i>
+                </div>
+                <p id="metal-info" class="add-info hidden-element">Metalliromua ovat esimerkiksi polkupyörät, puulämmitteiset kiukaat,
                     lämminvesivaraajat sekä metalliastiat ja -purkit.</p>
                 <!-- icon -->
             </div>
