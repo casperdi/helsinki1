@@ -1,13 +1,13 @@
 :root {
-    --turquoise: #008782;
-    --white: #fff;
-    --purple: #86419E;
-    --grey: #9F9F9F;
-    --yellow: #FCFACE;
-    --green: #009F4D;
-    --red: #BE3333;
+  --turquoise: #008782;
+  --white: #fff;
+  --purple: #86419e;
+  --grey: #9f9f9f;
+  --yellow: #fcface;
+  --green: #009f4d;
+  --red: #be3333;
 }
-*{
+* {
   box-sizing: border-box;
 }
 
@@ -22,10 +22,9 @@ header {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
-  z-index: 2;
+  z-index: 100;
   width: 100%;
   background-color: var(--white);
-
 }
 
 #logo {
@@ -34,9 +33,8 @@ header {
   top: 0;
   left: 0;
   z-index: 100;
-
 }
-#HSY{
+#HSY {
   display: flex;
   width: 100%;
   padding-top: 50px;
@@ -44,68 +42,62 @@ header {
   justify-content: space-between;
 }
 
-#HSY h1{
+#HSY h1 {
   font-size: 32px;
   font-weight: bold;
   width: 50%;
 }
 
-#secondary-nav{
+#secondary-nav {
   display: flex;
 }
-#secondary-nav a{
+#secondary-nav a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
   color: var(--turquoise);
-
 }
-
 
 #main-nav {
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
-
 }
 
-
-#main-nav a{
+#main-nav a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 20px;
   font-weight: bold;
   color: var(--turquoise);
-
 }
 
-#main-nav a:first-child{
+#main-nav a:first-child {
   padding-left: 0;
 }
 
-.active{
+.active {
   text-decoration: underline !important;
 }
 
 /*----------------MAP!------------------*/
 /*---Either map or list of stops are visible, never both at the same time */
-#map{
-
+#map {
   background-color: bisque;
   height: 550px;
   margin-right: 20px;
 }
 
-#list-of-stops{
+#list-of-stops {
   height: 550px;
   margin-right: 20px;
 }
 
-.rest-box2{
+.rest-box2 {
   margin-top: 1%;
   display: flex;
   width: 60%;
@@ -165,39 +157,36 @@ header {
   margin-bottom: 20px;
 }
 
-
 .list-of-stops-text {
   font-weight: bold;
   padding: 20px;
 }
 
-.icon-container5{
+.icon-container5 {
   text-align: center;
   padding: 6px;
-  background-color:var(--turquoise);
+  background-color: var(--turquoise);
   border-radius: 50%;
   color: var(--white);
   height: 30px;
   width: 30px;
   margin-right: 2.5%;
   margin-top: 2.5%;
-
-
 }
 #icon-espoo-minus {
-  background-color:var(--red);
+  background-color: var(--red);
 }
 #icon-helsinki-minus {
-  background-color:var(--red);
+  background-color: var(--red);
 }
 #icon-vantaa-minus {
-  background-color:var(--red);
+  background-color: var(--red);
 }
 #icon-kirkkonummi-minus {
-  background-color:var(--red);
+  background-color: var(--red);
 }
 
-.good2{
+.good2 {
   width: 100%;
   padding: 0;
 }
@@ -210,7 +199,7 @@ header {
   display: none;
 }
 
-#list-view{
+#list-view {
   display: none;
 }
 
@@ -280,11 +269,10 @@ header {
 
 /*----------------"SORTTI-COLLECTION TRUCKS"------------------*/
 
-#collection-truck{
+#collection-truck {
   padding-left: 5%;
   height: fit-content;
   margin-top: 200px;
-
 }
 #container {
   display: flex;
@@ -303,7 +291,6 @@ header {
 
 #intro-text h2 {
   margin-bottom: 20px;
-
 }
 .minor-title {
   font-weight: bold;
@@ -315,23 +302,21 @@ header {
   margin: 10px 0px;
 }
 
-
-#sidebar{
+#sidebar {
   width: 40%;
   display: flex;
   flex-direction: column;
   height: 100%;
   margin-top: 0.7%;
-
 }
 
-#sidebar h2{
+#sidebar h2 {
   font-size: 24px;
   font-weight: bold;
   padding-bottom: 30px;
 }
 
-.sidebar-box{
+.sidebar-box {
   width: 90%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin-top: 10px;
@@ -339,22 +324,20 @@ header {
   padding: 20px;
   justify-content: space-between;
   align-items: center;
-
-
 }
 
-.icon-container-purple{
+.icon-container-purple {
   text-align: center;
-  background-color:var(--purple);
+  background-color: var(--purple);
   border-radius: 50%;
   color: var(--white);
   height: 100%;
   padding: 17px;
 }
 
-.icon-container{
+.icon-container {
   text-align: center;
-  background-color:var(--turquoise);
+  background-color: var(--turquoise);
   border-radius: 50%;
   width: 50px;
   color: var(--white);
@@ -362,59 +345,57 @@ header {
   padding: 17px;
 }
 
-.icon-container2{
+.icon-container2 {
   text-align: center;
-  background-color:var(--grey);
+  background-color: var(--grey);
   border-radius: 50%;
   color: var(--white);
   height: 100%;
   padding: 17px;
 }
-.icon-container3{
+.icon-container3 {
   text-align: center;
-  background-color:var(--green);
+  background-color: var(--green);
   border-radius: 50%;
   color: var(--white);
   height: 100%;
   padding: 17px;
 }
-.icon-container4{
+.icon-container4 {
   text-align: center;
-  background-color:var(--red);
+  background-color: var(--red);
   border-radius: 50%;
   color: var(--white);
   height: 100%;
   padding: 17px;
 }
 
-
-
-.sidebar-text{
+.sidebar-text {
   width: 70%;
 }
 
-.sidebar-text p{
+.sidebar-text p {
   font-size: 16px;
-  padding: 5px 0px 0px 0 ;
+  padding: 5px 0px 0px 0;
 }
 
-.sidebar-text h3{
+.sidebar-text h3 {
   font-size: 20px;
   font-weight: bold;
 }
 
-.sidebar-box p:first-child{
+.sidebar-box p:first-child {
   font-size: 20px;
   font-weight: bold;
   padding: 0px 0 5px 0;
 }
 
-#restrictions{
+#restrictions {
   padding-left: 5%;
   height: fit-content;
 }
 
-.alert{
+.alert {
   background-color: var(--yellow);
   display: flex;
   padding: 10px;
@@ -423,37 +404,37 @@ header {
   width: 45%;
 }
 
-.alert i{
+.alert i {
   margin: 0px 10px;
 }
 
-.black{
+.black {
   fill: black;
   padding-right: 5px;
 }
 
-#restrictions-info{
+#restrictions-info {
   width: 100%;
   margin-top: 50px;
   margin-bottom: 50px;
   display: flex;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.good{
+.good {
   width: 50%;
   padding: 15px;
 }
 
-#bad{
+#bad {
   width: 50%;
   padding: 15px;
 }
 
-.rest-box{
+.rest-box {
   display: flex;
   width: 90%;
   align-items: center;
@@ -463,7 +444,7 @@ header {
   flex-wrap: wrap;
 }
 
-.rest-box-bad{
+.rest-box-bad {
   display: flex;
   width: 90%;
   align-items: center;
@@ -473,24 +454,21 @@ header {
   flex-wrap: wrap;
 }
 
-.sidebar-text-bad{
+.sidebar-text-bad {
   width: 70%;
 }
 
-.sidebar-text-bad p{
+.sidebar-text-bad p {
   font-size: 18px;
 }
 
-
-
-.add-info{
+.add-info {
   padding-top: 40px;
   width: 70%;
   margin: auto;
 }
 
-
-.elec-alert{
+.elec-alert {
   width: 70%;
   background-color: var(--yellow);
   margin: auto;
@@ -499,7 +477,7 @@ header {
   display: flex;
 }
 
-.elec-alert i{
+.elec-alert i {
   margin: 0 10px;
 }
 
