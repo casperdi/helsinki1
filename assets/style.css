@@ -265,6 +265,8 @@ header {
   border-radius: 15px;
   border: none;
   display: block;
+  background-color: var(--turquoise);
+  color: var(--white);
 }
 
 /*----------------"SORTTI-COLLECTION TRUCKS"------------------*/
