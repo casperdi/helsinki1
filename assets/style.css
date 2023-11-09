@@ -1,11 +1,14 @@
 :root {
   --turquoise: #008782;
+  --turquoiseHover: #007470;
   --white: #fff;
   --purple: #86419e;
   --grey: #9f9f9f;
+  --greyHover: #cacaca;
   --yellow: #fcface;
   --green: #009f4d;
   --red: #be3333;
+  --black: #000;
 }
 * {
   box-sizing: border-box;
@@ -60,6 +63,10 @@ header {
   color: var(--turquoise);
 }
 
+#secondary-nav a:hover {
+  text-decoration: underline;
+}
+
 #main-nav {
   width: 100%;
   display: flex;
@@ -74,6 +81,10 @@ header {
   font-size: 20px;
   font-weight: bold;
   color: var(--turquoise);
+}
+
+#main-nav a:hover {
+  text-decoration: underline;
 }
 
 #main-nav a:first-child {
@@ -230,7 +241,14 @@ header {
   top: 4px;
   background-color: var(--turquoise);
   text-align: center;
+  color: var(--white);
 }
+
+#searchButton:hover {
+  cursor: pointer;
+  background-color: var(--turquoiseHover);
+}
+
 #map-or-list-button {
   width: fit-content;
   padding: 5px;
@@ -243,6 +261,11 @@ header {
   z-index: 3;
   border-radius: 15px;
   border: none;
+}
+
+#map-or-list-button:hover {
+  cursor: pointer;
+  background-color: var(--greyHover);
 }
 #map-or-list-button:active {
   transform: scale(0.98);
@@ -267,6 +290,11 @@ header {
   display: block;
   background-color: var(--turquoise);
   color: var(--white);
+}
+
+#filter-button:hover {
+  cursor: pointer;
+  background-color: var(--turquoiseHover);
 }
 
 /*----------------"SORTTI-COLLECTION TRUCKS"------------------*/
@@ -354,6 +382,10 @@ header {
   color: var(--white);
   height: 100%;
   padding: 17px;
+}
+
+.icon-container2:hover {
+  background-color: var(--black);
 }
 .icon-container3 {
   text-align: center;
@@ -444,6 +476,10 @@ header {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 40px;
   flex-wrap: wrap;
+}
+
+.rest-box:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
 }
 
 .rest-box-bad {

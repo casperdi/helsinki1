@@ -1,7 +1,7 @@
 // Initialize and add the map
 const { Map } = await google.maps.importLibrary("maps");
 const wfsUrl =
-  "https://kartta.hsy.fi/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&TypeName=JH_Keraysautojen_pysahtymispaikat_2024";
+  "https://kartta.hsy.fi/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&TypeName=JH_Keraysautojen_pysahtymispaikat_2023";
 let xmlData = "";
 const proxyUrl = "https://corsproxy.io/?";
 let transposedDataArray;
