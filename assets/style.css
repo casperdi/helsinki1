@@ -609,7 +609,7 @@ header {
 
 #did-you-know-list {
   padding: 25px 75px;
-  list-style-type: circle;
+  list-style-type: disc;
 }
 
 .did-you-know-list-item {

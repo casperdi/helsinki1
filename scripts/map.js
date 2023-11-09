@@ -812,11 +812,9 @@ document
 document.getElementById("danger-click").addEventListener("click", function () {
   expandDanger();
 });
-document
-  .getElementById("elec-click")
-  .addEventListener("click", function () {
-    expandElectronic();
-  });
+document.getElementById("elec-click").addEventListener("click", function () {
+  expandElectronic();
+});
 document.getElementById("metal-click").addEventListener("click", function () {
   expandMetal();
 });
@@ -824,10 +822,20 @@ document.getElementById("metal-click").addEventListener("click", function () {
 let filterButton = document.getElementById("filter-button");
 filterButton.addEventListener("click", filterMarkersByDistance);
 
+const inputElement = document.getElementById("searchBox");
+
+inputElement.addEventListener("keyup", function (event) {
+  if (event.key === "Enter") {
+    // Get the value from the text field
+    const enteredValue = inputElement.value;
+    searchClosestMarkersToAddress(enteredValue);
+    enteredValue.value = "";
+  }
+});
+
 const searchButton = document
   .getElementById("searchButton")
   .addEventListener("click", function () {
-    const inputElement = document.getElementById("searchBox");
     const address = inputElement.value;
     searchClosestMarkersToAddress(address);
   });
