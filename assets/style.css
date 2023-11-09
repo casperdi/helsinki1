@@ -474,11 +474,19 @@ header {
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 40px;
   flex-wrap: wrap;
 }
 
+.rest-click {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+}
+
 .rest-box:hover {
+  cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
 }
 
@@ -501,7 +509,7 @@ header {
 }
 
 .add-info {
-  padding-top: 40px;
+  padding: 40px 0;
   width: 70%;
   margin: auto;
 }
@@ -513,6 +521,7 @@ header {
   padding: 10px;
   font-size: 15px;
   display: flex;
+  margin-bottom: 40px;
 }
 
 .elec-alert i {
@@ -534,21 +543,23 @@ header {
 }
 #works-info-text {
   padding-bottom: 30px;
+  font-size: 18px;
 }
 .works-vaaralliset {
   display: flex;
-  height: 100px;
+  padding: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .works-mini-title {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
   margin-left: 25px;
   margin-top: 15px;
   margin-bottom: 10px;
 }
 .works-specific {
   margin-left: 25px;
+  font-size: 16px;
 }
 .works-icon-1 {
   width: 36px;
@@ -582,7 +593,7 @@ header {
   margin-top: 15px;
   margin-left: 10px;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
 }
 #info-icon {
   border: black;
@@ -597,8 +608,7 @@ header {
 }
 
 #did-you-know-list {
-  padding-top: 25px;
-  padding-left: 75px;
+  padding: 25px 75px;
   list-style-type: circle;
 }
 

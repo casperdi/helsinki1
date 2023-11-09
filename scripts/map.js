@@ -809,15 +809,15 @@ document
     }
   });
 
-document.getElementById("danger-waste").addEventListener("click", function () {
+document.getElementById("danger-click").addEventListener("click", function () {
   expandDanger();
 });
 document
-  .getElementById("electronic-waste")
+  .getElementById("elec-click")
   .addEventListener("click", function () {
     expandElectronic();
   });
-document.getElementById("metal-waste").addEventListener("click", function () {
+document.getElementById("metal-click").addEventListener("click", function () {
   expandMetal();
 });
 
