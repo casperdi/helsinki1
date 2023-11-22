@@ -258,16 +258,22 @@ function addMarker(
     }
   });
 
+  
+
+
   const timeRange = markerData[3];
-  const [startTime, endTime] = timeRange.split('-');
+  const [startTime, endTime] = timeRange.split('–');
 
   console.log('Start Time:', startTime);
   console.log('End Time:', endTime);
 
-  let dates = markerData[2];
+
+  console.log('anna sitä hyvää',formatToYYYYMMDD(markerData[2]));
+
+  let dates = formatToYYYYMMDD(markerData[2]);
 
   let title =
-    'Sorttiauto (!HUOM vaihda päivämäärä oikein ' + markerData[2] + ')';
+    'Sorttiauto';
   
   // Attach event listener to the "Add to Calendar" button
   google.maps.event.addListenerOnce(infoWindow, 'domready', function () {
@@ -280,19 +286,54 @@ function addMarker(
         console.log('marker4', markerData[3]);
         
         // Trigger the function to add the event to Google Calendar
-        addGoogleCalendarReminder(title, dates, markerData[4]);
+        addGoogleCalendarReminder(title, dates, startTime, endTime, markerData[4]);
       });
     }
   });
+
+   if (markerData[6] === 'Helsinki') {
+     let helsinkiList = document.getElementById('actual-list-helsinki');
+     let child = document.createElement('p');
+     child.id = 'helsinkiData1';
+     child.textContent =
+       markerData[2] + '  |  ' + markerData[3] + '  |  ' + markerData[4];
+     helsinkiList.appendChild(child);
+   }
+   if (markerData[6] === 'Vantaa') {
+     let helsinkiList = document.getElementById('actual-list-vantaa');
+     let child = document.createElement('p');
+     child.id = 'vantaaData1';
+     child.textContent =
+       markerData[2] + '  |  ' + markerData[3] + '  |  ' + markerData[4];
+     helsinkiList.appendChild(child);
+   }
+   if (markerData[6] === 'Kirkkonummi') {
+     let helsinkiList = document.getElementById('actual-list-kirkkonummi');
+     let child = document.createElement('p');
+     child.id = 'kirkkonummiData1';
+     child.textContent =
+       markerData[2] + '  |  ' + markerData[3] + '  |  ' + markerData[4];
+     helsinkiList.appendChild(child);
+   }
+   if (markerData[6] === 'Espoo') {
+     let helsinkiList = document.getElementById('actual-list-espoo');
+     let child = document.createElement('p');
+     child.id = 'espooData1';
+     child.textContent =
+       markerData[2] + '  |  ' + markerData[3] + '  |  ' + markerData[4];
+     helsinkiList.appendChild(child);
+   }
 
   return marker;
 }
 
 
-function addGoogleCalendarReminder(title, startDate, location) {
+function addGoogleCalendarReminder(title, startDate, startTime, endTime, location) {
   // Format the startDate to be in the format YYYYMMDDTHHmmssZ
   const formattedStartDate = startDate.replace(/\./g, ''); // Remove dots
-  const startDateString = formattedStartDate + 'T000000Z';
+  const formattedStartTime = startTime.replace(/\./g, '');
+  const formattedEndTime = endTime.replace(/\./g, '');
+  const startDateString = formattedStartDate + 'T' + formattedStartTime + '00Z/' + formattedStartDate+ 'T' + formattedEndTime + '00Z';
 
   const calendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
     title
@@ -314,6 +355,20 @@ function addGoogleCalendarReminder(title, startDate, location) {
     view: window,
   });
   calendarLink.dispatchEvent(clickEvent);
+}
+
+function formatToYYYYMMDD(inputDate) {
+  // Split the input date string into day, month, and year
+  const [day, month, year] = inputDate.split('.');
+
+  // Ensure that day and month have leading zeros if they are single digits
+  const formattedDay = day.padStart(2, '0');
+  const formattedMonth = month.padStart(2, '0');
+
+  // Format the date as "YYYYMMDD"
+  const formattedDate = `${year}${formattedMonth}${formattedDay}`;
+
+  return formattedDate;
 }
 
 /**
