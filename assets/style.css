@@ -279,6 +279,18 @@ header {
   z-index: 3;
   border-radius: 15px;
   border: none;
+  display: flex;
+}
+
+#remove-filter-button{
+  width: 100px;
+  padding: 5px;
+  height: 30px;
+  border-radius: 15px;
+  border: none;
+  display: block;
+  background-color: var(--red);
+  color: var(--white);
 }
 
 #filter-button {

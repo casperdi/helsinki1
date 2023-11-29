@@ -905,6 +905,11 @@ document.getElementById('elec-click').addEventListener('click', function () {
 document.getElementById('metal-click').addEventListener('click', function () {
   expandMetal();
 });
+document
+  .getElementById('remove-filter-button')
+  .addEventListener('click', function () {
+    initMap();
+  });
 
 let filterButton = document.getElementById('filter-button');
 filterButton.addEventListener('click', filterMarkersByDistance);
