@@ -185,6 +185,17 @@ function addCustomMarker(map, latLng) {
   return marker;
 }
 
+function addCustomMarkerGreen(map, latLng) {
+  const marker = new google.maps.Marker({
+    map: map,
+    position: latLng,
+    title: 'Custom Marker',
+    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+  });
+
+  return marker;
+}
+
 //console.log(googleMarkers[1].markerData[8], "ggg")
 
 /**
@@ -215,7 +226,6 @@ function addMarker(
       <p id="customInfoWindowText">Auto on paikalla ${markerData[3]}</p>
       <p id="customInfoWindowText">${markerData[4]}</p>
       <p id="customInfoWindowText">${markerData[6] + ', ' + markerData[5]}</p>
-      <button id="${navButtonId}" type="button">Navigate</button>
       <button id="calendarButton_${markerIndex}" type="button">Add to Calendar</button>
     </div>`;
 
@@ -257,8 +267,6 @@ function addMarker(
       console.error('Invalid or missing coordinates:', sourceCoords);
     }
   });
-
-  
 
 
   const timeRange = markerData[3];
@@ -326,7 +334,6 @@ function addMarker(
 
   return marker;
 }
-
 
 function addGoogleCalendarReminder(title, startDate, startTime, endTime, location) {
   // Format the startDate to be in the format YYYYMMDDTHHmmssZ
@@ -429,14 +436,30 @@ function removeFilters() {
   });
 }
 
+let customMarker;
+
 function searchClosestMarkersToAddress(address) {
   console.log(address);
+
+  // Remove existing custom marker
+  if (customMarker) {
+    customMarker.setMap(null);
+  }
+
   // Geocode the address to get its coordinates
   const geocoder = new google.maps.Geocoder();
 
   geocoder.geocode({ address: address }, (results, status) => {
     if (status === google.maps.GeocoderStatus.OK) {
       const userLocation = results[0].geometry.location;
+
+      // Create a new custom marker at the searched address
+      customMarker = addCustomMarkerGreen(map, userLocation);
+
+      // Center the map on the new custom marker
+      map.setCenter(userLocation);
+      // Optionally, adjust the zoom level
+      map.setZoom(14); // You can set the desired zoom level
 
       // Calculate the distances from the user location to all markers
       const distances = googleMarkers.map((marker) => {
