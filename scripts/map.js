@@ -459,7 +459,7 @@ function searchClosestMarkersToAddress(address) {
       // Center the map on the new custom marker
       map.setCenter(userLocation);
       // Optionally, adjust the zoom level
-      map.setZoom(14); // You can set the desired zoom level
+      map.setZoom(14);
 
       // Calculate the distances from the user location to all markers
       const distances = googleMarkers.map((marker) => {
@@ -479,12 +479,6 @@ function searchClosestMarkersToAddress(address) {
       for (let i = 0; i < numClosestMarkers; i++) {
         const closestMarker = distances[i].marker;
         closestMarker.setVisible(true);
-
-        // You can do something with the closestMarker, e.g., open an info window.
-        // For example, you can call the addMarkerInfoWindow function here.
-
-        // Assuming you have a function to open info window:
-        //openInfoWindowForMarker(closestMarker);
       }
 
       // Hide all other markers
