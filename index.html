@@ -11,8 +11,14 @@
     <script src="https://kit.fontawesome.com/22c82907f2.js" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWBC23rDlpMW-TjxowoTviPEMkQ-W0bIM&libraries=places,directions&callback=initMap"
             async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWBC23rDlpMW-TjxowoTviPEMkQ-W0bIM&libraries=geometry&callback=initMap"
+    defer></script>
     <script src="scripts/proj4.js"></script>
     <script type="module" src="scripts/map.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<!-- Include protobuf.js library -->
+<script src="https://cdn.jsdelivr.net/npm/protobufjs/dist/protobuf.js"></script>
 </head>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -61,7 +67,7 @@
             <div id="map"></div>
             <div id="searchContainer" class="hidden-element">
                 <input type="text" id="searchBox" placeholder="Kirjoita osoitteesi...">
-                <div id="searchButton">
+                <div id="searchButton" onkeydown="search()">
                     <i class="fas fa-solid fa-arrow-right"></i>
                 </div>
             </div>
@@ -139,7 +145,7 @@
             </div>
             <button id="map-or-list-button"><i class="fas fa-solid fa-bars"></i> Lista näkymä</button>
             <div id="filter-map-button-container">
-                <button class="hidden-element" id="filter-button">Filteröi</button>
+                <button class="hidden-element" id="filter-button">Suodata</button>
             </div>
             <div id="list-view">
                 <h2>Pysähdyspaikat- ja ajat:</h2>
@@ -158,26 +164,28 @@
                     <p>Kirjaa lähimmät keräysautojen pysähdyspaikat julisteeseen ja tulosta se taloyhtiösi
                         jätetilaan</p>
                 </div>
+                <a href="https://www.hsy.fi/globalassets/keraysauto-juliste_muokattava_3-2023.pdf">
                 <div class="icon-container2">
-
                     <i class="fas fa-solid fa-download"></i>
-
                 </div>
+            </a>
             </div>
 
             <div class="sidebar-box">
                 <div class="icon-container">
-
+                    
                     <i class="fas fa-solid fa-bars"></i>
-
+                    
                 </div>
                 <div class="sidebar-text">
                     <p>Ehdota uutta pysähdyspaikkaa</p>
                     <p>Haluatko ehdottaa uutta pysähdyspaikkaa? Ota yhteyttä!</p>
                 </div>
+                <a href="https://yhteydenotto.hsy.fi/asiakaspalvelu/s/?language=fi">
                 <div class="icon-container2">
                     <i class="fas fa-solid fa-arrow-right"></i>
                 </div>
+            </a>
             </div>
 
             <div class="sidebar-box">
@@ -191,9 +199,11 @@
                     <p>Kirjaa lähimmät keräysautojen pysähdyspaikat julisteeseen ja tulosta se taloyhtiösi
                         jätetilaan</p>
                 </div>
+                <a href="https://www.kierratyskeskus.fi/lahjoita_tavaraa/kiertavat_keraysautot">
                 <div class="icon-container2">
                     <i class="fas fa-solid fa-arrow-right"></i>
                 </div>
+            </a>
             </div>
 
             <div class="sidebar-box">
@@ -203,9 +213,11 @@
                 <div class="sidebar-text">
                     <p>Sortti-asemat</p>
                 </div>
+                <a href="https://www.hsy.fi/jatteet-ja-kierratys/sortti-asemat/">
                 <div class="icon-container2">
                     <i class="fas fa-solid fa-arrow-right"></i>
                 </div>
+            </a>
             </div>
 
             <div class="sidebar-box">
@@ -215,59 +227,66 @@
                 <div class="sidebar-text">
                     <p>Sorttikontit kodin vaaralliselle jätteelle</p>
                 </div>
+                <a href="https://www.hsy.fi/jatteet-ja-kierratys/sortti-kontti-vaaralliselle-jatteelle/">
                 <div class="icon-container2">
                     <i class="fas fa-solid fa-arrow-right"></i>
                 </div>
+            </a>
             </div>
         </div>
     </div>
 </section>
 
 
+
 <section id="restrictions">
 
-    <div>
+    <div id="restrictions-title">
 
         <h2 class="minor-title">Sortti-auton rajoitukset</h2>
-        <div class="alert">
+        <div class="alert" id="yellow-box">
             <i class="fas fa-solid fa-exclamation"></i>
 
-            <p> Viethän suuret määrät, kuten peräkärrylastilliset, suoraan Sortti-asemalle tai romuliikkeisiin.</p>
+            <p id="yellow-box-p"> Viethän suuret määrät, kuten peräkärrylastilliset, suoraan Sortti-asemalle tai romuliikkeisiin.</p>
         </div>
     </div>
 
     <div id="restrictions-info">
         <div class="good">
             <div id="danger-waste" class="rest-box">
-                <div class="icon-container3">
-                    <i class="fas fa-solid fa-check"></i>
-                </div>
+                <div id="danger-click" class="rest-click">
+                    <div class="icon-container3">
+                        <i class="fas fa-solid fa-check"></i>
+                    </div>
 
-                <div class="sidebar-text">
-                    <h3>Vaarallinen jäte (ent. ongelmajäte)</h3>
-                </div>
-                <div id="danger-plus" class="icon-container">
-                    <i  class="fas fa-solid fa-plus"></i>
-                </div>
-                 <div id="danger-minus" class="icon-container4 hidden-element">
-                     <i  class="fas fa-solid fa-minus"></i>
+                    <div class="sidebar-text">
+                        <h3>Vaarallinen jäte (ent. ongelmajäte)</h3>
+                    </div>
+                    <div id="danger-plus" class="icon-container">
+                        <i  class="fas fa-solid fa-plus"></i>
+                    </div>
+                    <div id="danger-minus" class="icon-container4 hidden-element">
+                        <i  class="fas fa-solid fa-minus"></i>
+                    </div>
                 </div>
                 <p id="danger-info" class="add-info hidden-element">Vaarallista jätettä ovat muun muassa energiansäästölamput, maalit, liuottimet,
                     siivouskemikaalit ja akut.</p>
             </div>
             <div id="electronic-waste" class="rest-box">
-                <div class="icon-container3">
-                    <i class="fas fa-solid fa-check"></i>
-                </div>
+                <div id="elec-click" class="rest-click">
+                    <div class="icon-container3">
+                        <i class="fas fa-solid fa-check"></i>
+                    </div>
 
-                <div class="sidebar-text">
-                    <h3>Sähkö ja elektoriniikkaromu</h3>
-                </div>
-                <div id="elec-plus" class="icon-container">
-                    <i  class="fas fa-solid fa-plus"></i>
-                </div>
-                 <div id="elec-minus" class="icon-container4 hidden-element">
-                     <i  class="fas fa-solid fa-minus"></i>
+                    <div class="sidebar-text">
+                        <h3>Sähkö ja elektoriniikkaromu</h3>
+                    </div>
+                    <div id="elec-plus" class="icon-container">
+                        <i  class="fas fa-solid fa-plus"></i>
+                    </div>
+                    <div id="elec-minus" class="icon-container4 hidden-element">
+                        <i  class="fas fa-solid fa-minus"></i>
+                    </div>
                 </div>
                 <div id="elec-info" class="hidden-element">
                     <p class="add-info ">Sähkölaiteromua ovat esimerkiksi jääkaapit, pakastimet, televisiot, kahvinkeittimet,
@@ -283,18 +302,20 @@
 
             </div>
             <div id="metal-waste" class="rest-box">
-                <div class="icon-container3">
-                    <i class="fas fa-solid fa-check"></i>
-                </div>
+                <div id="metal-click" class="rest-click">
+                    <div class="icon-container3">
+                        <i class="fas fa-solid fa-check"></i>
+                    </div>
 
-                <div class="sidebar-text">
-                    <h3>Metalliromu</h3>
-                </div>
-                <div id="metal-plus" class="icon-container">
-                    <i class="fas fa-solid fa-plus"></i>
-                </div>
-                 <div id="metal-minus" class="icon-container4 hidden-element">
-                     <i  class="fas fa-solid fa-minus"></i>
+                    <div class="sidebar-text">
+                        <h3>Metalliromu</h3>
+                    </div>
+                    <div id="metal-plus" class="icon-container">
+                        <i class="fas fa-solid fa-plus"></i>
+                    </div>
+                    <div id="metal-minus" class="icon-container4 hidden-element">
+                        <i  class="fas fa-solid fa-minus"></i>
+                    </div>
                 </div>
                 <p id="metal-info" class="add-info hidden-element">Metalliromua ovat esimerkiksi polkupyörät, puulämmitteiset kiukaat,
                     lämminvesivaraajat sekä metalliastiat ja -purkit.</p>
@@ -371,7 +392,7 @@
 
 <section id="works">
 
-    <div>
+    <div id="how-to-work">
         <div id="work-section-header">
             <h2 class="minor-title">Näin toimit Sortti-keräysautoilla</h2>
         </div>
