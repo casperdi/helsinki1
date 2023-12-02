@@ -154,17 +154,16 @@ async function initMap() {
       ];
     }
 
-    console.log('Source Coordinates (EPSG:3879):', separateSource);
+    
 
     const targetCoords = proj4('EPSG:3879', 'EPSG:4326', separateSource);
     asd[11] = targetCoords;
-    console.log('Target Coordinates', targetCoords);
+    
 
     const latitude = targetCoords[1];
     const longitude = targetCoords[0];
 
     let markerLatLng = { lat: latitude, lng: longitude };
-    console.log(`Marker ${i}: Latitude ${latitude}, Longitude ${longitude}`);
     const marker = addMarker(
       map,
       markerLatLng,
@@ -203,7 +202,7 @@ function addCustomMarkerGreen(map, latLng) {
   return marker;
 }
 
-//console.log(googleMarkers[1].markerData[8], "ggg")
+
 
 /**
  * With this function you can create markers to map and makes marker clickable
@@ -234,6 +233,7 @@ function addMarker(
       <p id="customInfoWindowText">${markerData[4]}</p>
       <p id="customInfoWindowText">${markerData[6] + ', ' + markerData[5]}</p>
       <button id="calendarButton_${markerIndex}" type="button">Add to Calendar</button>
+      <button id="navigationButton_${markerIndex}" type="button"> Päivän reitti </button>
     </div>`;
 
   let infoWindow = new google.maps.InfoWindow({
@@ -265,11 +265,10 @@ function addMarker(
     const sourceCoords = markerData[11];
     if (Array.isArray(sourceCoords) && sourceCoords.length === 2) {
       const separateSource = sourceCoords;
-      console.log('Source Coordinates (EPSG:3879):', separateSource);
+      
 
       const targetCoords = proj4('EPSG:3879', 'EPSG:4326', separateSource);
-      console.log('Target Coordinates', targetCoords);
-      console.log(navButtonId, 'Nav button ID');
+      
     } else {
       console.error('Invalid or missing coordinates:', sourceCoords);
     }
@@ -278,12 +277,6 @@ function addMarker(
 
   const timeRange = markerData[3];
   const [startTime, endTime] = timeRange.split('–');
-
-  console.log('Start Time:', startTime);
-  console.log('End Time:', endTime);
-
-
-  console.log('anna sitä hyvää',formatToYYYYMMDD(markerData[2]));
 
   let dates = formatToYYYYMMDD(markerData[2]);
 
@@ -297,11 +290,22 @@ function addMarker(
     );
     if (calendarButton) {
       calendarButton.addEventListener('click', function () {
-        console.log('Add to Calendar button clicked!');
-        console.log('marker4', markerData[3]);
         
         // Trigger the function to add the event to Google Calendar
         addGoogleCalendarReminder(title, dates, startTime, endTime, markerData[4]);
+      });
+    }
+  });
+
+  google.maps.event.addListenerOnce(infoWindow, 'domready', function () {
+    const navButton = document.getElementById(`navigationButton_${markerIndex}`);
+    if (navButton) {
+      // Add a click event listener to the navButton
+      navButton.addEventListener('click', function () {
+        calcRoute(googleMarkers[markerIndex].markerData[2]);
+        currentInfoWindow.close();
+        currentInfoWindow = null;
+        
       });
     }
   });
@@ -355,7 +359,6 @@ function addGoogleCalendarReminder(title, startDate, startTime, endTime, locatio
     location
   )}`;
 
-  console.log(calendarUrl);
   // Create an anchor element
   const calendarLink = document.createElement('a');
   calendarLink.href = calendarUrl;
@@ -446,7 +449,6 @@ function removeFilters() {
 let customMarker;
 
 function searchClosestMarkersToAddress(address) {
-  console.log(address);
 
   // Remove existing custom marker
   if (customMarker) {
@@ -546,16 +548,64 @@ function filterMarkersByDistance() {
   });
 }
 
+function showHelsinkiMarkers() {
+  if (event.cancelable) event.preventDefault();
+  googleMarkers.forEach((marker) => {
+    const position = marker.markerData[6]
+  if (position === "Helsinki") {
+    marker.setVisible(true);
+  } else {
+    marker.setVisible(false);
+  }
+  })
+}
+
+function showEspooMarkers() {
+  if (event.cancelable) event.preventDefault();
+  googleMarkers.forEach((marker) => {
+    const position = marker.markerData[6]
+  if (position === "Espoo") {
+    marker.setVisible(true);
+  } else {
+    marker.setVisible(false);
+  }
+  })
+}
+
+function showVantaaMarkers() {
+  if (event.cancelable) event.preventDefault();
+  googleMarkers.forEach((marker) => {
+    const position = marker.markerData[6]
+  if (position === "Vantaa") {
+    marker.setVisible(true);
+  } else {
+    marker.setVisible(false);
+  }
+  })
+}
+
+function showKirkkonummiMarkers() {
+  if (event.cancelable) event.preventDefault();
+  googleMarkers.forEach((marker) => {
+    const position = marker.markerData[6]
+  if (position === "Kirkkonummi") {
+    marker.setVisible(true);
+  } else {
+    marker.setVisible(false);
+  }
+  })
+}
+
 /**
  * Shows markers that have title of '10.05.2023' = targetdate variable
  * draws route from first to last stop through waypoints aka. all the markers between first and last
  */
-function calcRoute() {
+function calcRoute(targetDate) {
   const directionsService = new google.maps.DirectionsService();
   let directionsDisplay = new google.maps.DirectionsRenderer();
   const directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
   const markkerit = [];
-  const targetDate = '10.05.2023';
+  
 
   googleMarkers.forEach((marker) => {
     if (marker.markerData[2] === targetDate) {
@@ -565,9 +615,7 @@ function calcRoute() {
       marker.setVisible(false);
     }
   });
-  console.log(markkerit[1].markerData[11][1], 'Markkerit');
   let endpoint = googleMarkers[150].markerData[11];
-  console.log('Endpoint', endpoint[1]);
   const waypoints = [];
 
   // Add waypoints to the array
@@ -667,7 +715,6 @@ function hideMap() {
   map.classList.toggle('hidden-element');
   stops.classList.toggle('hidden-element');
   filterbut.classList.toggle('hidden-element');
-  console.log('map hidden/shown');
 }
 
 let switchBtwnListAndMap = document.getElementById('map-or-list-button');
@@ -918,8 +965,20 @@ document
     initMap();
   });
 
-let filterButton = document.getElementById('filter-button');
-filterButton.addEventListener('click', filterMarkersByDistance);
+let filterButton = document.getElementById('menu-button-one');
+filterButton.addEventListener('click', filterMarkersByDistance); 
+
+let filterButtonTwo = document.getElementById('Helsinki-button');
+filterButtonTwo.addEventListener('click', showHelsinkiMarkers); 
+
+let filterButtonThree = document.getElementById('menu-button-three');
+filterButtonThree.addEventListener('click', showVantaaMarkers); 
+
+let filterButtonFour = document.getElementById('menu-button-four');
+filterButtonFour.addEventListener('click', showKirkkonummiMarkers); 
+
+let filterButtonFive = document.getElementById('menu-button-five');
+filterButtonFive.addEventListener('click', showEspooMarkers); 
 
 const inputElement = document.getElementById('searchBox');
 
@@ -932,11 +991,23 @@ inputElement.addEventListener('keyup', function (event) {
   }
 });
 
+
 const searchButton = document
   .getElementById('searchButton')
   .addEventListener('click', function () {
     const address = inputElement.value;
     searchClosestMarkersToAddress(address);
   });
+
+  document.getElementById('filter-button').addEventListener('click', function() {
+    var menu = document.getElementById('menu');
+    if (menu.style.display === 'block') {
+      menu.style.display = 'none';
+    } else {
+      menu.style.display = 'block';
+    }
+  });
+
+
 
 initMap();

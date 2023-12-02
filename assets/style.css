@@ -640,6 +640,29 @@ header {
   flex: 1;
 }
 
+.hidden-element {
+  display: none;
+}
+
+.menu {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+}
+
+.menu-button {
+  display: block;
+  padding: 10px;
+  width: 100px;
+  padding: 5px;
+  height: 30px;
+  border-radius: 15px;
+  border: none;
+  background-color: var(--turquoise);
+  color: var(--white);
+  margin-bottom: 10px;
+}
 
 @media only screen and (max-width: 1000px) {
   /* General adjustments for smaller screens */

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,481 +10,503 @@
     <link rel="stylesheet" href="assets/style.css">
 
     <script src="https://kit.fontawesome.com/22c82907f2.js" crossorigin="anonymous"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWBC23rDlpMW-TjxowoTviPEMkQ-W0bIM&libraries=places,directions&callback=initMap"
-            async defer></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWBC23rDlpMW-TjxowoTviPEMkQ-W0bIM&libraries=geometry&callback=initMap"
-    defer></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlD7JSOUld4zL9FfkG5pbJYIBc7GPr4wM&libraries=places,directions&callback=initMap"
+        async defer></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlD7JSOUld4zL9FfkG5pbJYIBc7GPr4wM&libraries=geometry&callback=initMap"
+        defer></script>
     <script src="scripts/proj4.js"></script>
     <script type="module" src="scripts/map.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<!-- Include protobuf.js library -->
-<script src="https://cdn.jsdelivr.net/npm/protobufjs/dist/protobuf.js"></script>
+    <!-- Include protobuf.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/protobufjs/dist/protobuf.js"></script>
 </head>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-<header>
+    <header>
 
 
-    <img id="logo" src="assets/img/hsylogo.png" alt="">
+        <img id="logo" src="assets/img/hsylogo.png" alt="">
 
-    <div id="HSY">
-        <h1>HSY</h1>
-        <ul id="secondary-nav">
-            <li><a href="#">Sortti-asemat </a></li>
-            <li><a href="#">Jäteopas</a></li>
-            <li><a href="#">Asiakaspalvelu</a></li>
-            <li><a href="#">Ota yhteyttä</a></li>
-            <li><a href="#">FI</a></li>
-            <li><a href="#">SV</a></li>
-            <li><a href="#">EN</a></li>
+        <div id="HSY">
+            <h1>HSY</h1>
+            <ul id="secondary-nav">
+                <li><a href="#">Sortti-asemat </a></li>
+                <li><a href="#">Jäteopas</a></li>
+                <li><a href="#">Asiakaspalvelu</a></li>
+                <li><a href="#">Ota yhteyttä</a></li>
+                <li><a href="#">FI</a></li>
+                <li><a href="#">SV</a></li>
+                <li><a href="#">EN</a></li>
+            </ul>
+        </div>
+        <ul id="main-nav">
+            <li><a class="active" href="#">Jätteet ja Kierrätys</a></li>
+            <li><a href="#">Vesi ja Viemärit</a></li>
+            <li><a href="#">Ilmanlaatu ja Ilmasto</a></li>
+            <li><a href="#">HSY</a></li>
+            <li><a href="#">Ympäristötieto</a></li>
+            <li><a href="#">Haku</a></li>
         </ul>
-    </div>
-    <ul id="main-nav">
-        <li><a class="active" href="#">Jätteet ja Kierrätys</a></li>
-        <li><a href="#">Vesi ja Viemärit</a></li>
-        <li><a href="#">Ilmanlaatu ja Ilmasto</a></li>
-        <li><a href="#">HSY</a></li>
-        <li><a href="#">Ympäristötieto</a></li>
-        <li><a href="#">Haku</a></li>
-    </ul>
-</header>
+    </header>
 
-<section id="collection-truck">
-    <h1>Sortti-keräysautot</h1>
-    <div id="container">
-        <div id="map-container">
+    <section id="collection-truck">
+        <h1>Sortti-keräysautot</h1>
+        <div id="container">
+            <div id="map-container">
 
-            <div id="intro-text">
-                <h2 class="minor-title">Sortti-keräysautot kiertävät jälleen keväällä 2024</h2>
-                <p>Sortti-keräysautomme ottavat jälleen maksutta vastaan vaarallista jätettä sekä metalli- ja sähköromua
-                    keväällä 2024.</p>
+                <div id="intro-text">
+                    <h2 class="minor-title">Sortti-keräysautot kiertävät jälleen keväällä 2024</h2>
+                    <p>Sortti-keräysautomme ottavat jälleen maksutta vastaan vaarallista jätettä sekä metalli- ja
+                        sähköromua
+                        keväällä 2024.</p>
 
-            </div>
-            <!--These 2 divs contains map and list views, clicking the button hides other one and shows other one, map is shown as default -->
-            <div id="map"></div>
-            <div id="searchContainer" class="hidden-element">
-                <input type="text" id="searchBox" placeholder="Kirjoita osoitteesi...">
-                <div id="searchButton" onkeydown="search()">
-                    <i class="fas fa-solid fa-arrow-right"></i>
                 </div>
-            </div>
-            <div id="list-of-stops" class="hidden-element">
-
-                <h2 id="map-list-title">Pysähdyspaikat ja -ajat:</h2>
-
-                <div id="espoon-pysahdyspaikat" class="rest-box2">
-                    <div class="list-of-stops-header">
-                        <div class="list-of-stops-text">
-                            <h3> Espoon pysähdyspaikat </h3>
-                        </div>
-                        <div id="icon-espoo" class="icon-container5">
-                            <i class="fas fa-solid fa-plus"></i>
-                        </div>
-                        <div id="icon-espoo-minus" class="icon-container5 hidden-element">
-                            <i class="fas fa-solid fa-minus"></i>
-                        </div>
-                    </div>
-                    <div id="actual-list-espoo">
-
+                <!--These 2 divs contains map and list views, clicking the button hides other one and shows other one, map is shown as default -->
+                <div id="map"></div>
+                <div id="searchContainer" class="hidden-element">
+                    <input type="text" id="searchBox" placeholder="Kirjoita osoitteesi...">
+                    <div id="searchButton" onkeydown="search()">
+                        <i class="fas fa-solid fa-arrow-right"></i>
                     </div>
                 </div>
+                <div id="list-of-stops" class="hidden-element">
 
-                <div id="helsingin-pysahdyspaikat" class="rest-box2">
-                    <div class="list-of-stops-header">
-                        <div class="list-of-stops-text">
-                            <h3> Helsingin pysähdyspaikat </h3>
-                        </div>
-                        <div id="icon-helsinki" class="icon-container5">
-                            <i class="fas fa-solid fa-plus"></i>
-                        </div>
-                        <div id="icon-helsinki-minus" class="icon-container5 hidden-element">
-                            <i class="fas fa-solid fa-minus"></i>
-                        </div>
-                    </div>
-                    <div id="actual-list-helsinki">
-                    </div>
-                </div>
+                    <h2 id="map-list-title">Pysähdyspaikat ja -ajat:</h2>
 
-                <div id="vantaan-pysahdyspaikat" class="rest-box2">
-                    <div class="list-of-stops-header">
+                    <div id="espoon-pysahdyspaikat" class="rest-box2">
+                        <div class="list-of-stops-header">
+                            <div class="list-of-stops-text">
+                                <h3> Espoon pysähdyspaikat </h3>
+                            </div>
+                            <div id="icon-espoo" class="icon-container5">
+                                <i class="fas fa-solid fa-plus"></i>
+                            </div>
+                            <div id="icon-espoo-minus" class="icon-container5 hidden-element">
+                                <i class="fas fa-solid fa-minus"></i>
+                            </div>
+                        </div>
+                        <div id="actual-list-espoo">
 
-                        <div class="list-of-stops-text">
-                            <h3> Vantaan pysähdyspaikat </h3>
-                        </div>
-                        <div id="icon-vantaa" class="icon-container5">
-                            <i class="fas fa-solid fa-plus"></i>
-                        </div>
-                        <div id="icon-vantaa-minus" class="icon-container5 hidden-element">
-                            <i class="fas fa-solid fa-minus"></i>
                         </div>
                     </div>
-                    <div id="actual-list-vantaa">
 
-                    </div>
-                </div>
-
-                <div id="kirkkonummen-pysahdyspaikat" class="rest-box2">
-                    <div class="list-of-stops-header">
-                        <div class="list-of-stops-text">
-                            <h3> Kirkkonummen pysähdyspaikat </h3>
+                    <div id="helsingin-pysahdyspaikat" class="rest-box2">
+                        <div class="list-of-stops-header">
+                            <div class="list-of-stops-text">
+                                <h3> Helsingin pysähdyspaikat </h3>
+                            </div>
+                            <div id="icon-helsinki" class="icon-container5">
+                                <i class="fas fa-solid fa-plus"></i>
+                            </div>
+                            <div id="icon-helsinki-minus" class="icon-container5 hidden-element">
+                                <i class="fas fa-solid fa-minus"></i>
+                            </div>
                         </div>
-                        <div id="icon-kirkkonummi" class="icon-container5">
-                            <i class="fas fa-solid fa-plus"></i>
-                        </div>
-                        <div id="icon-kirkkonummi-minus" class="icon-container5 hidden-element">
-                            <i class="fas fa-solid fa-minus"></i>
+                        <div id="actual-list-helsinki">
                         </div>
                     </div>
-                    <div id="actual-list-kirkkonummi">
 
-                    </div>
-                </div>
-            </div>
-            <button id="map-or-list-button"><i class="fas fa-solid fa-bars"></i> Lista näkymä</button>
-            <div id="filter-map-button-container">
-                <button class="hidden-element" id="filter-button">Suodata</button>
-                <button class="hidden-element" id="remove-filter-button">Tyhjennä</button>
-            </div>
-            <div id="list-view">
-                <h2>Pysähdyspaikat- ja ajat:</h2>
+                    <div id="vantaan-pysahdyspaikat" class="rest-box2">
+                        <div class="list-of-stops-header">
 
-            </div>
-        </div>
-        <div id="sidebar">
-            <h2>Tutustu myös näihin</h2>
+                            <div class="list-of-stops-text">
+                                <h3> Vantaan pysähdyspaikat </h3>
+                            </div>
+                            <div id="icon-vantaa" class="icon-container5">
+                                <i class="fas fa-solid fa-plus"></i>
+                            </div>
+                            <div id="icon-vantaa-minus" class="icon-container5 hidden-element">
+                                <i class="fas fa-solid fa-minus"></i>
+                            </div>
+                        </div>
+                        <div id="actual-list-vantaa">
 
-            <div class="sidebar-box">
-                <div class="icon-container-purple">
-                    <i class="fas fa-solid fa-file-pdf"></i>
-                </div>
-                <div class="sidebar-text">
-                    <p>Täytä ja tulosta aikataulupohja</p>
-                    <p>Kirjaa lähimmät keräysautojen pysähdyspaikat julisteeseen ja tulosta se taloyhtiösi
-                        jätetilaan</p>
-                </div>
-                <a href="https://www.hsy.fi/globalassets/keraysauto-juliste_muokattava_3-2023.pdf">
-                <div class="icon-container2">
-                    <i class="fas fa-solid fa-download"></i>
-                </div>
-            </a>
-            </div>
-
-            <div class="sidebar-box">
-                <div class="icon-container">
-                    
-                    <i class="fas fa-solid fa-bars"></i>
-                    
-                </div>
-                <div class="sidebar-text">
-                    <p>Ehdota uutta pysähdyspaikkaa</p>
-                    <p>Haluatko ehdottaa uutta pysähdyspaikkaa? Ota yhteyttä!</p>
-                </div>
-                <a href="https://yhteydenotto.hsy.fi/asiakaspalvelu/s/?language=fi">
-                <div class="icon-container2">
-                    <i class="fas fa-solid fa-arrow-right"></i>
-                </div>
-            </a>
-            </div>
-
-            <div class="sidebar-box">
-                <div class="icon-container">
-
-                    <i class="fas fa-solid fa-location-arrow"></i>
-
-                </div>
-                <div class="sidebar-text">
-                    <p>Kierrätyskeskuksen keräysautot</p>
-                    <p>Kirjaa lähimmät keräysautojen pysähdyspaikat julisteeseen ja tulosta se taloyhtiösi
-                        jätetilaan</p>
-                </div>
-                <a href="https://www.kierratyskeskus.fi/lahjoita_tavaraa/kiertavat_keraysautot">
-                <div class="icon-container2">
-                    <i class="fas fa-solid fa-arrow-right"></i>
-                </div>
-            </a>
-            </div>
-
-            <div class="sidebar-box">
-                <div class="icon-container">
-                    <i class="fas fa-solid fa-info"></i>
-                </div>
-                <div class="sidebar-text">
-                    <p>Sortti-asemat</p>
-                </div>
-                <a href="https://www.hsy.fi/jatteet-ja-kierratys/sortti-asemat/">
-                <div class="icon-container2">
-                    <i class="fas fa-solid fa-arrow-right"></i>
-                </div>
-            </a>
-            </div>
-
-            <div class="sidebar-box">
-                <div class="icon-container">
-                    <i class="fas fa-solid fa-info"></i>
-                </div>
-                <div class="sidebar-text">
-                    <p>Sorttikontit kodin vaaralliselle jätteelle</p>
-                </div>
-                <a href="https://www.hsy.fi/jatteet-ja-kierratys/sortti-kontti-vaaralliselle-jatteelle/">
-                <div class="icon-container2">
-                    <i class="fas fa-solid fa-arrow-right"></i>
-                </div>
-            </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-<section id="restrictions">
-
-    <div id="restrictions-title">
-
-        <h2 class="minor-title">Sortti-auton rajoitukset</h2>
-        <div class="alert" id="yellow-box">
-            <i class="fas fa-solid fa-exclamation"></i>
-
-            <p id="yellow-box-p"> Viethän suuret määrät, kuten peräkärrylastilliset, suoraan Sortti-asemalle tai romuliikkeisiin.</p>
-        </div>
-    </div>
-
-    <div id="restrictions-info">
-        <div class="good">
-            <div id="danger-waste" class="rest-box">
-                <div id="danger-click" class="rest-click">
-                    <div class="icon-container3">
-                        <i class="fas fa-solid fa-check"></i>
+                        </div>
                     </div>
 
+                    <div id="kirkkonummen-pysahdyspaikat" class="rest-box2">
+                        <div class="list-of-stops-header">
+                            <div class="list-of-stops-text">
+                                <h3> Kirkkonummen pysähdyspaikat </h3>
+                            </div>
+                            <div id="icon-kirkkonummi" class="icon-container5">
+                                <i class="fas fa-solid fa-plus"></i>
+                            </div>
+                            <div id="icon-kirkkonummi-minus" class="icon-container5 hidden-element">
+                                <i class="fas fa-solid fa-minus"></i>
+                            </div>
+                        </div>
+                        <div id="actual-list-kirkkonummi">
+
+                        </div>
+                    </div>
+                </div>
+                <button id="map-or-list-button"><i class="fas fa-solid fa-bars"></i> Lista näkymä</button>
+                <div id="filter-map-button-container">
+                    <button class="hidden-element" id="filter-button">Suodata</button>
+                    <div class="menu" id="menu">
+                        <button class="menu-button" id="menu-button-one"> Lähellä </button>
+                        <button class="menu-button" id="Helsinki-button"> Helsinki </button>
+                        <button class="menu-button" id="menu-button-three">Vantaa </button>
+                        <button class="menu-button" id="menu-button-four"> Kirkkonummi </button>
+                        <button class="menu-button" id="menu-button-five"> Espoo </button>
+                    </div>
+                    <button class="hidden-element" id="remove-filter-button">Tyhjennä</button>
+                </div>
+                <div id="list-view">
+                    <h2>Pysähdyspaikat- ja ajat:</h2>
+
+                </div>
+            </div>
+            <div id="sidebar">
+                <h2>Tutustu myös näihin</h2>
+
+                <div class="sidebar-box">
+                    <div class="icon-container-purple">
+                        <i class="fas fa-solid fa-file-pdf"></i>
+                    </div>
                     <div class="sidebar-text">
-                        <h3>Vaarallinen jäte (ent. ongelmajäte)</h3>
+                        <p>Täytä ja tulosta aikataulupohja</p>
+                        <p>Kirjaa lähimmät keräysautojen pysähdyspaikat julisteeseen ja tulosta se taloyhtiösi
+                            jätetilaan</p>
                     </div>
-                    <div id="danger-plus" class="icon-container">
-                        <i  class="fas fa-solid fa-plus"></i>
-                    </div>
-                    <div id="danger-minus" class="icon-container4 hidden-element">
-                        <i  class="fas fa-solid fa-minus"></i>
-                    </div>
+                    <a href="https://www.hsy.fi/globalassets/keraysauto-juliste_muokattava_3-2023.pdf">
+                        <div class="icon-container2">
+                            <i class="fas fa-solid fa-download"></i>
+                        </div>
+                    </a>
                 </div>
-                <p id="danger-info" class="add-info hidden-element">Vaarallista jätettä ovat muun muassa energiansäästölamput, maalit, liuottimet,
-                    siivouskemikaalit ja akut.</p>
-            </div>
-            <div id="electronic-waste" class="rest-box">
-                <div id="elec-click" class="rest-click">
-                    <div class="icon-container3">
-                        <i class="fas fa-solid fa-check"></i>
-                    </div>
 
+                <div class="sidebar-box">
+                    <div class="icon-container">
+
+                        <i class="fas fa-solid fa-bars"></i>
+
+                    </div>
                     <div class="sidebar-text">
-                        <h3>Sähkö ja elektoriniikkaromu</h3>
+                        <p>Ehdota uutta pysähdyspaikkaa</p>
+                        <p>Haluatko ehdottaa uutta pysähdyspaikkaa? Ota yhteyttä!</p>
                     </div>
-                    <div id="elec-plus" class="icon-container">
-                        <i  class="fas fa-solid fa-plus"></i>
-                    </div>
-                    <div id="elec-minus" class="icon-container4 hidden-element">
-                        <i  class="fas fa-solid fa-minus"></i>
-                    </div>
-                </div>
-                <div id="elec-info" class="hidden-element">
-                    <p class="add-info ">Sähkölaiteromua ovat esimerkiksi jääkaapit, pakastimet, televisiot, kahvinkeittimet,
-                        pesukoneet, tietokoneet ja sähkövatkaimet. <br>
-                        Vie isommat määrät esimerkiksi peräkärrykuormalliset sähkölaitteita Sortti-asemille.</p>
-
-                    <div class="elec-alert">
-                        <i class="fas fa-solid fa-exclamation"></i>
-                        <p>Emme voi taata tietoturvaa. Käytä tarvittaessa esim. Seiffi.fi-palvelua muistia sisältävien
-                            laitteiden kuten tietokoneiden ja mobiililaitteiden hävitykseen.</p>
-                    </div>
+                    <a href="https://yhteydenotto.hsy.fi/asiakaspalvelu/s/?language=fi">
+                        <div class="icon-container2">
+                            <i class="fas fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
                 </div>
 
-            </div>
-            <div id="metal-waste" class="rest-box">
-                <div id="metal-click" class="rest-click">
-                    <div class="icon-container3">
-                        <i class="fas fa-solid fa-check"></i>
-                    </div>
+                <div class="sidebar-box">
+                    <div class="icon-container">
 
+                        <i class="fas fa-solid fa-location-arrow"></i>
+
+                    </div>
                     <div class="sidebar-text">
-                        <h3>Metalliromu</h3>
+                        <p>Kierrätyskeskuksen keräysautot</p>
+                        <p>Kirjaa lähimmät keräysautojen pysähdyspaikat julisteeseen ja tulosta se taloyhtiösi
+                            jätetilaan</p>
                     </div>
-                    <div id="metal-plus" class="icon-container">
-                        <i class="fas fa-solid fa-plus"></i>
+                    <a href="https://www.kierratyskeskus.fi/lahjoita_tavaraa/kiertavat_keraysautot">
+                        <div class="icon-container2">
+                            <i class="fas fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="sidebar-box">
+                    <div class="icon-container">
+                        <i class="fas fa-solid fa-info"></i>
                     </div>
-                    <div id="metal-minus" class="icon-container4 hidden-element">
-                        <i  class="fas fa-solid fa-minus"></i>
+                    <div class="sidebar-text">
+                        <p>Sortti-asemat</p>
                     </div>
-                </div>
-                <p id="metal-info" class="add-info hidden-element">Metalliromua ovat esimerkiksi polkupyörät, puulämmitteiset kiukaat,
-                    lämminvesivaraajat sekä metalliastiat ja -purkit.</p>
-                <!-- icon -->
-            </div>
-        </div>
-
-        <div id="bad">
-            <div class="rest-box-bad">
-                <div class="icon-container4">
-                    <i class="fas fa-solid fa-minus"></i>
+                    <a href="https://www.hsy.fi/jatteet-ja-kierratys/sortti-asemat/">
+                        <div class="icon-container2">
+                            <i class="fas fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
                 </div>
 
-                <div class="sidebar-text-bad">
-                    <p>Painekyllästetty puu: katso <a
-                            href="https://www.hsy.fi/jatteet-ja-kierratys/jateopas/jatteet/painekyllastetty-puu-kestopuu/">vastaanottopaikat</a>
-                    </p>
-                </div>
-            </div>
-            <div class="rest-box-bad">
-                <div class="icon-container4">
-                    <i class="fas fa-solid fa-minus"></i>
-                </div>
-
-                <div class="sidebar-text-bad">
-                    <p>Ilotulitteet, hätäraketit, räjähteet, ammukset ja aseet tulee toimittaa poliisin osoittamaan
-                        paikkaan, paitsi hätäraketit niitä myyviin liikkeisiin.</p>
-                </div>
-            </div>
-            <div class="rest-box-bad">
-                <div class="icon-container4">
-                    <i class="fas fa-solid fa-minus"></i>
-                </div>
-
-                <div class="sidebar-text-bad">
-                    <p>Lääkkeet tulee toimittaa apteekkiin.</p>
-                </div>
-            </div>
-            <div class="rest-box-bad">
-                <div class="icon-container4">
-                    <i class="fas fa-solid fa-minus"></i>
-                </div>
-
-                <div class="sidebar-text-bad">
-                    <p>Vie isot kaasupullot Sortti-asemalle tai Kivikon vaarallisen jätteen asemalle ja vaarallista
-                        jätettä sisältävät tynnyrit Kivikon vaarallisen jätteen asemalle (avoinna arkisin 7-16).</p>
-                </div>
-            </div>
-            <div class="rest-box-bad">
-                <div class="icon-container4">
-                    <i class="fas fa-solid fa-minus"></i>
-                </div>
-
-                <div class="sidebar-text-bad">
-                    <p>Autonrenkaiden vastaanotto Suomen Rengaskierrätys Oy:n <a
-                            href="https://www.rengaskierratys.com/kuluttajalle/vastaanottopisteet">vastaanottopisteillä</a>.
-                    </p>
-                </div>
-            </div>
-            <div class="rest-box-bad">
-                <div class="icon-container4">
-                    <i class="fas fa-solid fa-minus"></i>
-                </div>
-
-                <div class="sidebar-text-bad">
-                    <p>Asbesti: katso <a
-                            href="https://www.hsy.fi/jatteet-ja-kierratys/jateopas/jatteet/asbesti/">ohjeet</a> .</p>
+                <div class="sidebar-box">
+                    <div class="icon-container">
+                        <i class="fas fa-solid fa-info"></i>
+                    </div>
+                    <div class="sidebar-text">
+                        <p>Sorttikontit kodin vaaralliselle jätteelle</p>
+                    </div>
+                    <a href="https://www.hsy.fi/jatteet-ja-kierratys/sortti-kontti-vaaralliselle-jatteelle/">
+                        <div class="icon-container2">
+                            <i class="fas fa-solid fa-arrow-right"></i>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-</section>
 
-<section id="works">
 
-    <div id="how-to-work">
-        <div id="work-section-header">
-            <h2 class="minor-title">Näin toimit Sortti-keräysautoilla</h2>
+    <section id="restrictions">
+
+        <div id="restrictions-title">
+
+            <h2 class="minor-title">Sortti-auton rajoitukset</h2>
+            <div class="alert" id="yellow-box">
+                <i class="fas fa-solid fa-exclamation"></i>
+
+                <p id="yellow-box-p"> Viethän suuret määrät, kuten peräkärrylastilliset, suoraan Sortti-asemalle tai
+                    romuliikkeisiin.</p>
+            </div>
         </div>
 
-        <p id="works-info-text">
-            Mikäli saavut pysähdyspaikalle omalla autolla ennen keräysautoja, otathan huomioon viiden kuorma-auton
-            vaatiman tilantarpeen ja parkkeeraat sivummalle. Muista myös odottaa ja pitää turvaväli, kunnes autot ovat
-            laskeneet lavansa alas. <br><br>
-            Luovutathan tavarasi vain HSY:n keltaisiin turvaliiveihin pukeutuneelle keräysautojen henkilökunnalle.
-            <br><br>
-            Keräysautoihin vietävät tavarat kannattaa lajitella kotona etukäteen erillisiin kasseihin tai laatikoihin,
-            joista ne on helppo purkaa kyseistä jätelajia keräävään autoon. Jos et ole varma, minne tavarasi kuuluu
-            lajitella, ympäristöneuvojamme ja keräysautojen henkilökunta auttaa tarvittaessa paikan päällä.
-        </p>
-    </div>
+        <div id="restrictions-info">
+            <div class="good">
+                <div id="danger-waste" class="rest-box">
+                    <div id="danger-click" class="rest-click">
+                        <div class="icon-container3">
+                            <i class="fas fa-solid fa-check"></i>
+                        </div>
 
-    <div id="bottom-list-and-else">
-        <div id="works-list">
-            <div class="works-vaaralliset">
-                <div class="works-icon-1">
-                    <p style="color: white"> 1 </p>
+                        <div class="sidebar-text">
+                            <h3>Vaarallinen jäte (ent. ongelmajäte)</h3>
+                        </div>
+                        <div id="danger-plus" class="icon-container">
+                            <i class="fas fa-solid fa-plus"></i>
+                        </div>
+                        <div id="danger-minus" class="icon-container4 hidden-element">
+                            <i class="fas fa-solid fa-minus"></i>
+                        </div>
+                    </div>
+                    <p id="danger-info" class="add-info hidden-element">Vaarallista jätettä ovat muun muassa
+                        energiansäästölamput, maalit, liuottimet,
+                        siivouskemikaalit ja akut.</p>
                 </div>
+                <div id="electronic-waste" class="rest-box">
+                    <div id="elec-click" class="rest-click">
+                        <div class="icon-container3">
+                            <i class="fas fa-solid fa-check"></i>
+                        </div>
+
+                        <div class="sidebar-text">
+                            <h3>Sähkö ja elektoriniikkaromu</h3>
+                        </div>
+                        <div id="elec-plus" class="icon-container">
+                            <i class="fas fa-solid fa-plus"></i>
+                        </div>
+                        <div id="elec-minus" class="icon-container4 hidden-element">
+                            <i class="fas fa-solid fa-minus"></i>
+                        </div>
+                    </div>
+                    <div id="elec-info" class="hidden-element">
+                        <p class="add-info ">Sähkölaiteromua ovat esimerkiksi jääkaapit, pakastimet, televisiot,
+                            kahvinkeittimet,
+                            pesukoneet, tietokoneet ja sähkövatkaimet. <br>
+                            Vie isommat määrät esimerkiksi peräkärrykuormalliset sähkölaitteita Sortti-asemille.</p>
+
+                        <div class="elec-alert">
+                            <i class="fas fa-solid fa-exclamation"></i>
+                            <p>Emme voi taata tietoturvaa. Käytä tarvittaessa esim. Seiffi.fi-palvelua muistia
+                                sisältävien
+                                laitteiden kuten tietokoneiden ja mobiililaitteiden hävitykseen.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="metal-waste" class="rest-box">
+                    <div id="metal-click" class="rest-click">
+                        <div class="icon-container3">
+                            <i class="fas fa-solid fa-check"></i>
+                        </div>
+
+                        <div class="sidebar-text">
+                            <h3>Metalliromu</h3>
+                        </div>
+                        <div id="metal-plus" class="icon-container">
+                            <i class="fas fa-solid fa-plus"></i>
+                        </div>
+                        <div id="metal-minus" class="icon-container4 hidden-element">
+                            <i class="fas fa-solid fa-minus"></i>
+                        </div>
+                    </div>
+                    <p id="metal-info" class="add-info hidden-element">Metalliromua ovat esimerkiksi polkupyörät,
+                        puulämmitteiset kiukaat,
+                        lämminvesivaraajat sekä metalliastiat ja -purkit.</p>
+                    <!-- icon -->
+                </div>
+            </div>
+
+            <div id="bad">
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                        <i class="fas fa-solid fa-minus"></i>
+                    </div>
+
+                    <div class="sidebar-text-bad">
+                        <p>Painekyllästetty puu: katso <a
+                                href="https://www.hsy.fi/jatteet-ja-kierratys/jateopas/jatteet/painekyllastetty-puu-kestopuu/">vastaanottopaikat</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                        <i class="fas fa-solid fa-minus"></i>
+                    </div>
+
+                    <div class="sidebar-text-bad">
+                        <p>Ilotulitteet, hätäraketit, räjähteet, ammukset ja aseet tulee toimittaa poliisin osoittamaan
+                            paikkaan, paitsi hätäraketit niitä myyviin liikkeisiin.</p>
+                    </div>
+                </div>
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                        <i class="fas fa-solid fa-minus"></i>
+                    </div>
+
+                    <div class="sidebar-text-bad">
+                        <p>Lääkkeet tulee toimittaa apteekkiin.</p>
+                    </div>
+                </div>
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                        <i class="fas fa-solid fa-minus"></i>
+                    </div>
+
+                    <div class="sidebar-text-bad">
+                        <p>Vie isot kaasupullot Sortti-asemalle tai Kivikon vaarallisen jätteen asemalle ja vaarallista
+                            jätettä sisältävät tynnyrit Kivikon vaarallisen jätteen asemalle (avoinna arkisin 7-16).</p>
+                    </div>
+                </div>
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                        <i class="fas fa-solid fa-minus"></i>
+                    </div>
+
+                    <div class="sidebar-text-bad">
+                        <p>Autonrenkaiden vastaanotto Suomen Rengaskierrätys Oy:n <a
+                                href="https://www.rengaskierratys.com/kuluttajalle/vastaanottopisteet">vastaanottopisteillä</a>.
+                        </p>
+                    </div>
+                </div>
+                <div class="rest-box-bad">
+                    <div class="icon-container4">
+                        <i class="fas fa-solid fa-minus"></i>
+                    </div>
+
+                    <div class="sidebar-text-bad">
+                        <p>Asbesti: katso <a
+                                href="https://www.hsy.fi/jatteet-ja-kierratys/jateopas/jatteet/asbesti/">ohjeet</a> .
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="works">
+
+        <div id="how-to-work">
+            <div id="work-section-header">
+                <h2 class="minor-title">Näin toimit Sortti-keräysautoilla</h2>
+            </div>
+
+            <p id="works-info-text">
+                Mikäli saavut pysähdyspaikalle omalla autolla ennen keräysautoja, otathan huomioon viiden kuorma-auton
+                vaatiman tilantarpeen ja parkkeeraat sivummalle. Muista myös odottaa ja pitää turvaväli, kunnes autot
+                ovat
+                laskeneet lavansa alas. <br><br>
+                Luovutathan tavarasi vain HSY:n keltaisiin turvaliiveihin pukeutuneelle keräysautojen henkilökunnalle.
+                <br><br>
+                Keräysautoihin vietävät tavarat kannattaa lajitella kotona etukäteen erillisiin kasseihin tai
+                laatikoihin,
+                joista ne on helppo purkaa kyseistä jätelajia keräävään autoon. Jos et ole varma, minne tavarasi kuuluu
+                lajitella, ympäristöneuvojamme ja keräysautojen henkilökunta auttaa tarvittaessa paikan päällä.
+            </p>
+        </div>
+
+        <div id="bottom-list-and-else">
+            <div id="works-list">
+                <div class="works-vaaralliset">
+                    <div class="works-icon-1">
+                        <p style="color: white"> 1 </p>
+                    </div>
+                    <div>
+                        <h3 class="works-mini-title">Vaaralliset jätteet</h3>
+                        <p class="works-specific">
+                            Pidä vaaralliset jätteet erillään muista jätteistä ehjissä ja tiiviissä pakkauksissa. Jos
+                            jäte
+                            ei
+                            ole alkuperäisessä pakkauksessaan, kirjoita oman pakkauksesi päälle, mitä ainetta se
+                            sisältää.
+                            Tarvittaessa kerro sisällöstä vielä henkilökunnalle keräyspaikalla.
+                        </p>
+                    </div>
+                </div>
+                <div class="works-vaaralliset">
+                    <div class="works-icon-1">
+                        <p style="color: white"> 2 </p>
+                    </div>
+                    <div>
+                        <h3 class="works-mini-title">Sähkölaitteet</h3>
+                        <p class="works-specific">
+                            Tuo sähkölaitteet ilman pahvilaatikoita. Tuothan kahvinkeittimet ilman lasista pannua ja
+                            imurit
+                            ilman pölypussia.
+                        </p>
+                    </div>
+                </div>
+                <div class="works-vaaralliset">
+                    <div class="works-icon-1">
+                        <p style="color: white"> 3 </p>
+                    </div>
+                    <div>
+                        <h3 class="works-mini-title">Metalliset tavarat</h3>
+                        <p class="works-specific">
+                            Tuo metalliset tavarat kassissa tai laatikossa, josta voit kaataa ne suoraan lavalle.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="did-you-know">
                 <div>
-                    <h3 class="works-mini-title">Vaaralliset jätteet</h3>
-                    <p class="works-specific">
-                        Pidä vaaralliset jätteet erillään muista jätteistä ehjissä ja tiiviissä pakkauksissa. Jos jäte
-                        ei
-                        ole alkuperäisessä pakkauksessaan, kirjoita oman pakkauksesi päälle, mitä ainetta se sisältää.
-                        Tarvittaessa kerro sisällöstä vielä henkilökunnalle keräyspaikalla.
-                    </p>
-                </div>
-            </div>
-            <div class="works-vaaralliset">
-                <div class="works-icon-1">
-                    <p style="color: white"> 2 </p>
-                </div>
-                <div>
-                    <h3 class="works-mini-title">Sähkölaitteet</h3>
-                    <p class="works-specific">
-                        Tuo sähkölaitteet ilman pahvilaatikoita. Tuothan kahvinkeittimet ilman lasista pannua ja imurit
-                        ilman pölypussia.
-                    </p>
-                </div>
-            </div>
-            <div class="works-vaaralliset">
-                <div class="works-icon-1">
-                    <p style="color: white"> 3 </p>
-                </div>
-                <div>
-                    <h3 class="works-mini-title">Metalliset tavarat</h3>
-                    <p class="works-specific">
-                        Tuo metalliset tavarat kassissa tai laatikossa, josta voit kaataa ne suoraan lavalle.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div id="did-you-know">
-            <div>
-                <div id="did-you-know-title">
-                    <div id="info-icon">
-                        <i class="fas fa-solid fa-info" style="color:white"></i>
+                    <div id="did-you-know-title">
+                        <div id="info-icon">
+                            <i class="fas fa-solid fa-info" style="color:white"></i>
+                        </div>
+                        <h3 id="did-you-know-title-text">Tiesitkö tätä?</h3>
                     </div>
-                    <h3 id="did-you-know-title-text">Tiesitkö tätä?</h3>
+                    <!-- icon -->
+                    <ul id="did-you-know-list">
+                        <li class="did-you-know-list-item">
+                            Yksittäiset pienet sähkölaitteet (alle 25 cm) ja energiansäästölamput voit palauttaa niitä
+                            myyviin suurimpiin liikkeisiin (erikoiskaupat, tavaratalot) ilman uuden laitteen
+                            ostovelvoitetta. Myymälä ottaa vastaan myös suuren laitteen, kun ostat tilalle uuden
+                            vastaavan
+                            laitteen.
+                        </li>
+                        <li class="did-you-know-list-item">
+                            Paristoja voit palauttaa mihin tahansa niitä myyvään liikkeeseen. Muistathan teipata
+                            paristojen
+                            navat!
+                        </li>
+                        <li class="did-you-know-list-item">
+                            Lampuista vain energiansäästölamput ja loisteputket ovat vaarallista jätettä. Led-lamput
+                            kuuluvat sähkölaitekeräykseen. Halogeenit ja hehkulamput voit laittaa sekajätteeseen.
+                        </li>
+                    </ul>
                 </div>
-                <!-- icon -->
-                <ul id="did-you-know-list">
-                    <li class="did-you-know-list-item">
-                        Yksittäiset pienet sähkölaitteet (alle 25 cm) ja energiansäästölamput voit palauttaa niitä
-                        myyviin suurimpiin liikkeisiin (erikoiskaupat, tavaratalot) ilman uuden laitteen
-                        ostovelvoitetta. Myymälä ottaa vastaan myös suuren laitteen, kun ostat tilalle uuden
-                        vastaavan
-                        laitteen.
-                    </li>
-                    <li class="did-you-know-list-item">
-                        Paristoja voit palauttaa mihin tahansa niitä myyvään liikkeeseen. Muistathan teipata
-                        paristojen
-                        navat!
-                    </li>
-                    <li class="did-you-know-list-item">
-                        Lampuista vain energiansäästölamput ja loisteputket ovat vaarallista jätettä. Led-lamput
-                        kuuluvat sähkölaitekeräykseen. Halogeenit ja hehkulamput voit laittaa sekajätteeseen.
-                    </li>
-                </ul>
             </div>
         </div>
-    </div>
 
-</section>
+    </section>
 
 
 </body>
+
 </html>
